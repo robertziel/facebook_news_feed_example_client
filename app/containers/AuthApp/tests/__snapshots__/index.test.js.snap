@@ -15,7 +15,7 @@ exports[`<AuthApp /> should match snapshot 1`] = `
     />
     <Route>
       <Redirect
-        to="/sign-in"
+        to="/login"
       />
     </Route>
   </Switch>
