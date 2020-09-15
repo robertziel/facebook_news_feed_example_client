@@ -1,6 +1,6 @@
 const defaultSettings = {
   insert: 'top',
-  container: 'top-right',
+  container: 'top-left',
   animationIn: ['animated', 'bounceIn'],
   animationOut: ['animated', 'fadeOut'],
   dismiss: {

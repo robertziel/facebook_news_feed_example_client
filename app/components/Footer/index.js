@@ -1,15 +1,14 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import PropTypes from 'prop-types';
 
 import LanguageToggle from 'components/LanguageToggle/index';
 
 import Wrapper from './Wrapper';
 import messages from './messages';
 
-function Footer(props) {
+function Footer() {
   return (
-    <Wrapper marginLeft={props.marginLeft}>
+    <Wrapper>
       <section>
         <div className="message">
           <FormattedMessage
@@ -30,9 +29,5 @@ function Footer(props) {
     </Wrapper>
   );
 }
-
-Footer.propTypes = {
-  marginLeft: PropTypes.number,
-};
 
 export default Footer;

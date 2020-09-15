@@ -8,8 +8,7 @@ const Wrapper = styled.footer`
   position: fixed;
   bottom: 0px;
   right: 0px;
-  width: ${({ marginLeft }) =>
-    marginLeft ? `calc(100% - ${marginLeft}px)` : '100%'};
+  width: 100%;
   height: 40px;
   background-color: #ffffff;
   border-top: rgba(0, 0, 0, 0.02) solid 1px;

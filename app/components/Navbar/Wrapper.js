@@ -11,8 +11,6 @@ const Wrapper = styled.nav`
   position: fixed;
   top: 0;
   right: 0px;
-  width: ${({ marginLeft }) =>
-    marginLeft ? `calc(100% - ${marginLeft}px)` : '100%'};
 
   .navbar-right {
     float: right;

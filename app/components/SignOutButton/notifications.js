@@ -10,6 +10,5 @@ export function signedOutNotify() {
     ...defaultSettings,
     message: getIntl().formatMessage(messages.signedOutNotify),
     type: 'success',
-    container: 'top-right',
   });
 }

@@ -1,12 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<App /> should match snapshot 1`] = `
-<ContentWrapper
-  marginLeft={60}
->
-  <Navbar
-    marginLeft={60}
-  />
+<ContentWrapper>
+  <Navbar />
   <Scroll>
     <Switch>
       <Route
@@ -19,14 +15,13 @@ exports[`<App /> should match snapshot 1`] = `
         exact={true}
         path="/profile"
       />
-      <Route
-        component={[Function]}
-      />
+      <Route>
+        <Redirect
+          to="/"
+        />
+      </Route>
     </Switch>
   </Scroll>
-  <Footer
-    marginLeft={60}
-  />
-  <Connect(Sidebar) />
+  <Footer />
 </ContentWrapper>
 `;

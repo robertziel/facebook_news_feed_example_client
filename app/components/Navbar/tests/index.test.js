@@ -1,5 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
+import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import { mount } from 'enzyme';
@@ -21,7 +22,9 @@ describe('<Navbar />', () => {
     const wrapper = mount(
       <IntlProvider locale="en">
         <Provider store={store}>
-          <Navbar />
+          <MemoryRouter>
+            <Navbar />
+          </MemoryRouter>
         </Provider>
       </IntlProvider>,
     );
