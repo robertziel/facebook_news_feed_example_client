@@ -5,9 +5,9 @@ function getAuthenticationToken() {
   return StoreAccessor.store.getState().backendApiConnector.authenticationToken;
 }
 
-// function getLanguageLocale() {
-//   return StoreAccessor.store.getState().language.locale;
-// }
+function getLanguageLocale() {
+  return StoreAccessor.store.getState().language.locale;
+}
 
 export const contextLink = setContext((_, { headers }) => {
   const token = getAuthenticationToken();
@@ -15,6 +15,7 @@ export const contextLink = setContext((_, { headers }) => {
     headers: {
       ...headers,
       authorization: token ? `Bearer ${token}` : '',
+      languageLocale: getLanguageLocale(),
     },
   };
 });
