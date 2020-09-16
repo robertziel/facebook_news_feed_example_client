@@ -18,18 +18,14 @@ function Navbar() {
         <LanguageToggle />
       </div>
       <div className="navbar-right">
-        <NavLink exact to="/profile">
-          <Button navbar>
-            <FontAwesome name="user" />
-          </Button>
-        </NavLink>
+        <Button navbar component={NavLink} exact to="/profile">
+          <FontAwesome name="user" />
+        </Button>
       </div>
       <div className="navbar-right">
-        <NavLink exact to="/">
-          <Button navbar>
-            <FontAwesome name="home" />
-          </Button>
-        </NavLink>
+        <Button navbar component={NavLink} exact to="/">
+          <FontAwesome name="home" />
+        </Button>
       </div>
     </Wrapper>
   );

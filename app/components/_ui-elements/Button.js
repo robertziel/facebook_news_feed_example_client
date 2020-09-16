@@ -23,7 +23,7 @@ const Button = styled(({ navbar, ...props }) => <ButtonCore {...props} />)`
         width: 100%;
         border: none;
 
-        &:hover {
+        &:hover, &.active {
           background: ${colors.lightMain};
           color: ${colors.main};
 
