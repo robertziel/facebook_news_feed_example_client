@@ -1,10 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading, indent */
 import React from 'react';
-
 import ButtonCore from '@material-ui/core/Button';
-
 import styled, { css } from 'styled-components';
-
 import { colors } from 'styles/constants';
 
 const Button = styled(({ navbar, ...props }) => <ButtonCore {...props} />)`
@@ -23,7 +20,8 @@ const Button = styled(({ navbar, ...props }) => <ButtonCore {...props} />)`
         width: 100%;
         border: none;
 
-        &:hover, &.active {
+        &:hover,
+        &.active {
           background: ${colors.lightMain};
           color: ${colors.main};
 

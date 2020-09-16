@@ -8,7 +8,7 @@
   "app.components.Sidebar.links.threePage": "Page Three",
   "app.components.Sidebar.links.twoPage": "Two page",
   "app.containers.ApiConnector.fetchers.notifications.connectionRefusedNotify": "Cannot connect to the server.",
-  "app.containers.HomePage.header": "This is the HomePage container!",
+  "app.containers.HomePage.header": "Home page",
   "app.containers.NotFoundPage.header": "404 Not found!",
   "app.containers.ProfilePage.header": "Your profile",
   "app.containers.auth.SignInPage.form.button": "Sign in",

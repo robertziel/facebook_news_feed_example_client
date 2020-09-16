@@ -4,13 +4,18 @@ import { Provider } from 'react-redux';
 
 import { mount } from 'enzyme';
 import waitForExpect from 'wait-for-expect';
-import { act } from 'react-dom/test-utils';
 
 import IntlCatcher from 'containers/LanguageProvider/IntlCatcher';
 import ConfigureTestStore from 'testsHelpers/ConfigureTestStore';
 
 import HomePage from '../Loadable';
-import messages from '../messages';
+
+// Mock Form required by HomePage
+/* eslint-disable react/prop-types */
+jest.mock('containers/_pages/HomePage/NewsFeeds/index', () => () => (
+  <div>NewsFeeds</div>
+));
+/* eslint-enable */
 
 let store;
 let wrapper;
@@ -27,11 +32,9 @@ function mountWrapper() {
   );
 }
 
-async function configureWrapper() {
+function configureWrapper() {
   store = new ConfigureTestStore().store;
-  await act(async () => {
-    wrapper = mountWrapper();
-  });
+  wrapper = mountWrapper();
 }
 
 describe('<HomePage />', () => {
@@ -42,7 +45,7 @@ describe('<HomePage />', () => {
   it('should render ActiveTokens', async () => {
     await waitForExpect(() => {
       wrapper.update();
-      expect(wrapper.text()).toContain(messages.header.defaultMessage);
+      expect(wrapper.text()).toContain('NewsFeeds');
     });
   });
 });

@@ -8,8 +8,9 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { Divider, Grid, H1, Paper } from 'components/_ui-elements';
+import { Divider, Grid, H1 } from 'components/_ui-elements';
 
+import NewsFeeds from './NewsFeeds';
 import messages from './messages';
 
 export default function HomePage() {
@@ -22,7 +23,7 @@ export default function HomePage() {
         <Divider />
       </Grid>
       <Grid item xs={12} md={4}>
-        <Paper></Paper>
+        <NewsFeeds />
       </Grid>
     </Grid>
   );
