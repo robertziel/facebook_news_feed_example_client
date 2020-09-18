@@ -27,6 +27,12 @@ function Navbar() {
           <FontAwesome name="home" />
         </Button>
       </div>
+
+      <div className="navbar-left">
+        <Button navbar component={NavLink} exact to="/new-post">
+          <FontAwesome name="plus" />
+        </Button>
+      </div>
     </Wrapper>
   );
 }

@@ -1,10 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading, indent */
 import React from 'react';
-
 import TextFieldCore from '@material-ui/core/TextField';
-
-import styled from 'styled-components';
-
+import styled, { css } from 'styled-components';
 import { colors } from 'styles/constants';
 
 const TextField = styled(({ ...props }) => <TextFieldCore {...props} />)`
@@ -26,6 +23,14 @@ const TextField = styled(({ ...props }) => <TextFieldCore {...props} />)`
       }
     }
   }
+
+  ${({ multiline }) =>
+    multiline &&
+    css`
+      textarea {
+        min-height: 400px;
+      }
+    `}
 `;
 
 export { TextField };

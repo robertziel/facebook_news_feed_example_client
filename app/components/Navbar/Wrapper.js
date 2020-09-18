@@ -13,11 +13,19 @@ const Wrapper = styled.nav`
   right: 0px;
   width: 100%;
 
-  .navbar-right {
-    float: right;
+  .navbar-right,
+  .navbar-left {
     width: 60px;
     height: 60px;
     margin-right: 10px;
+  }
+
+  .navbar-left {
+    float: left;
+  }
+
+  .navbar-right {
+    float: right;
   }
 `;
 
