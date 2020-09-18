@@ -11,18 +11,17 @@ import IntlCatcher from 'containers/LanguageProvider/IntlCatcher';
 import ConfigureTestStore from 'testsHelpers/ConfigureTestStore';
 import { MockedProvider } from '@apollo/client/testing';
 
-import NewsFeeds from '../index';
+import Posts from '../index';
 import { NEWS_FEEDS_QUERY } from '../graphql';
 
-// Mock Form required by NewsFeeds
+// Mock Form required by Posts
 /* eslint-disable react/prop-types */
-jest.mock(
-  'containers/_pages/HomePage/NewsFeeds/NewsFeed',
-  () => ({ newsFeed }) => <div>{newsFeed.content}</div>,
-);
+jest.mock('containers/_pages/HomePage/Posts/Post', () => ({ post }) => (
+  <div>{post.content}</div>
+));
 /* eslint-enable */
 
-const resultNewsFeed = {
+const resultPost = {
   id: 1,
   content: 'Content',
   title: 'Title',
@@ -41,7 +40,7 @@ const mocks = () => [
     },
     result: {
       data: {
-        newsFeeds: [resultNewsFeed],
+        posts: [resultPost],
       },
     },
   },
@@ -55,7 +54,7 @@ function mountWrapper() {
           <MockedProvider mocks={mocks()} addTypename={false}>
             <div>
               <NotificationSystem />
-              <NewsFeeds />
+              <Posts />
             </div>
           </MockedProvider>
         </Provider>
@@ -69,16 +68,16 @@ function configureWrapper() {
   wrapper = mountWrapper();
 }
 
-describe('<NewsFeeds />', () => {
+describe('<Posts />', () => {
   beforeEach(() => {
     configureWrapper();
   });
 
-  it('should render NewsFeed with newsFeed in props', async () => {
+  it('should render Post with post in props', async () => {
     await act(async () => {
       await waitForExpect(() => {
         wrapper.update();
-        expect(wrapper.text()).toContain(resultNewsFeed.content);
+        expect(wrapper.text()).toContain(resultPost.content);
       });
     });
   });

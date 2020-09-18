@@ -10,9 +10,9 @@ import NotificationSystem from 'containers/NotificationsSystem';
 import IntlCatcher from 'containers/LanguageProvider/IntlCatcher';
 import ConfigureTestStore from 'testsHelpers/ConfigureTestStore';
 
-import NewsFeed from '../NewsFeed';
+import Post from '../Post';
 
-const newsFeed = {
+const post = {
   id: 1,
   content: 'Content',
   title: 'Title',
@@ -33,7 +33,7 @@ function mountWrapper() {
           <ConnectedRouter history={history}>
             <div>
               <NotificationSystem />
-              <NewsFeed newsFeed={newsFeed} />
+              <Post post={post} />
             </div>
           </ConnectedRouter>
         </Provider>
@@ -47,12 +47,12 @@ function configureWrapper() {
   wrapper = mountWrapper();
 }
 
-describe('<NewsFeed />', () => {
+describe('<Post />', () => {
   beforeEach(() => {
     configureWrapper();
   });
 
   it('should render content', () => {
-    expect(wrapper.text()).toContain(newsFeed.content);
+    expect(wrapper.text()).toContain(post.content);
   });
 });

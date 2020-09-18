@@ -12,8 +12,8 @@ import HomePage from '../Loadable';
 
 // Mock Form required by HomePage
 /* eslint-disable react/prop-types */
-jest.mock('containers/_pages/HomePage/NewsFeeds/index', () => () => (
-  <div>NewsFeeds</div>
+jest.mock('containers/_pages/HomePage/Posts/index', () => () => (
+  <div>Posts</div>
 ));
 /* eslint-enable */
 
@@ -45,7 +45,7 @@ describe('<HomePage />', () => {
   it('should render ActiveTokens', async () => {
     await waitForExpect(() => {
       wrapper.update();
-      expect(wrapper.text()).toContain('NewsFeeds');
+      expect(wrapper.text()).toContain('Posts');
     });
   });
 });

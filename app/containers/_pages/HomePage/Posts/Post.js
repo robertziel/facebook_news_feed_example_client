@@ -13,19 +13,19 @@ import {
   Typography,
 } from '@material-ui/core';
 
-function NewsFeed({ newsFeed }) {
+function Post({ post }) {
   const image = 'https://www.w3schools.com/w3images/avatar2.png';
 
-  const date = new Date(newsFeed.createdAt);
+  const date = new Date(post.createdAt);
 
   return (
     <Card>
       <CardHeader
         avatar={<Avatar src={image} />}
-        title={newsFeed.user.name}
+        title={post.user.name}
         subheader={date.toDateString()}
       />
-      <CardActionArea onClick={() => history.push(`/news-feed/${newsFeed.id}`)}>
+      <CardActionArea onClick={() => history.push(`/post/${post.id}`)}>
         <CardContent>
           <Typography
             gutterBottom
@@ -33,7 +33,7 @@ function NewsFeed({ newsFeed }) {
             component="h2"
             align="center"
           >
-            {newsFeed.title}
+            {post.title}
           </Typography>
           <Typography
             variant="body2"
@@ -41,12 +41,12 @@ function NewsFeed({ newsFeed }) {
             component="span"
             align="center"
           >
-            {newsFeed.content}
+            {post.content}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" component={Link} to={`/news-feed/${newsFeed.id}`}>
+        <Button size="small" component={Link} to={`/post/${post.id}`}>
           Learn More
         </Button>
       </CardActions>
@@ -54,8 +54,8 @@ function NewsFeed({ newsFeed }) {
   );
 }
 
-NewsFeed.propTypes = {
-  newsFeed: PropTypes.object.isRequired,
+Post.propTypes = {
+  post: PropTypes.object.isRequired,
 };
 
-export default NewsFeed;
+export default Post;

@@ -1,10 +1,10 @@
 # Facebook like News Feeds client example in ReactJS
 
-[![Build Status](https://travis-ci.com/robertziel/facebook_news_feed_example_client.svg?branch=master)](https://travis-ci.com/robertziel/facebook_news_feed_example_client) [![Coverage Status](https://coveralls.io/repos/github/robertziel/facebook_news_feed_example_client/badge.svg?branch=master)](https://coveralls.io/github/robertziel/facebook_news_feed_example_client?branch=master)
+[![Build Status](https://travis-ci.com/robertziel/facebook_post_example_client.svg?branch=master)](https://travis-ci.com/robertziel/facebook_post_example_client) [![Coverage Status](https://coveralls.io/repos/github/robertziel/facebook_post_example_client/badge.svg?branch=master)](https://coveralls.io/github/robertziel/facebook_post_example_client?branch=master)
 
 Init commit based on https://github.com/robertziel/react_graphql_jwt_auth_boilerplate
 
-Backend API: https://github.com/robertziel/facebook_news_feed_example_api
+Backend API: https://github.com/robertziel/facebook_post_example_api
 
 ## Quick start
 

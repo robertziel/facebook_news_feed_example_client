@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export const NEWS_FEEDS_QUERY = gql`
   query {
-    newsFeeds {
+    posts {
       id
       content
       title
