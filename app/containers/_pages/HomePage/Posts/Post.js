@@ -27,20 +27,10 @@ function Post({ post }) {
       />
       <CardActionArea onClick={() => history.push(`/post/${post.id}`)}>
         <CardContent>
-          <Typography
-            gutterBottom
-            variant="body1"
-            component="h2"
-            align="center"
-          >
+          <Typography gutterBottom component="h2">
             {post.title}
           </Typography>
-          <Typography
-            variant="body2"
-            color="textSecondary"
-            component="span"
-            align="center"
-          >
+          <Typography component="span" align="center">
             {post.content}
           </Typography>
         </CardContent>

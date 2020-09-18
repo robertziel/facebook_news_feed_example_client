@@ -12,12 +12,12 @@ import ConfigureTestStore from 'testsHelpers/ConfigureTestStore';
 import { MockedProvider } from '@apollo/client/testing';
 
 import Posts from '../index';
-import { NEWS_FEEDS_QUERY } from '../graphql';
+import { POSTS_QUERY } from '../graphql';
 
 // Mock Form required by Posts
 /* eslint-disable react/prop-types */
 jest.mock('containers/_pages/HomePage/Posts/Post', () => ({ post }) => (
-  <div>{post.content}</div>
+  <div>Post component {post.content}</div>
 ));
 /* eslint-enable */
 
@@ -36,7 +36,7 @@ let wrapper;
 const mocks = () => [
   {
     request: {
-      query: NEWS_FEEDS_QUERY,
+      query: POSTS_QUERY,
     },
     result: {
       data: {
@@ -77,7 +77,9 @@ describe('<Posts />', () => {
     await act(async () => {
       await waitForExpect(() => {
         wrapper.update();
-        expect(wrapper.text()).toContain(resultPost.content);
+        expect(wrapper.text()).toContain(
+          `Post component ${resultPost.content}`,
+        );
       });
     });
   });

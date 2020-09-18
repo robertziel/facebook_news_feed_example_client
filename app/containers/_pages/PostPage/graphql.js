@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
-export const POSTS_QUERY = gql`
-  query {
-    posts {
+export const POST_QUERY = gql`
+  query post($id: ID!) {
+    post(id: $id) {
       id
       content
       title
