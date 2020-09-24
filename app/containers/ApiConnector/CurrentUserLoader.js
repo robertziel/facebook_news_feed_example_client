@@ -10,6 +10,7 @@ import { FulfillingBouncingCircleSpinner } from 'react-epic-spinners';
 import FetchedContent from 'containers/FetchedContent';
 import { setCurrentUser } from './actions';
 import { useQuery } from './apollo/fetchers';
+import { restartActionCableConnection } from './apollo/links/protocolLink/wsLink';
 
 import { currentUserSelector } from './selectors';
 import { PROFILE_QUERY } from './graphql';
@@ -17,6 +18,7 @@ import { PROFILE_QUERY } from './graphql';
 function CurrentUserLoader({ children, currentUser, onLoadSuccess }) {
   useQuery(PROFILE_QUERY, {
     onCompleted: (data) => {
+      restartActionCableConnection();
       onLoadSuccess(data.profile);
     },
   });

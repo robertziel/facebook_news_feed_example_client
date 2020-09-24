@@ -12,7 +12,7 @@ import ConfigureTestStore from 'testsHelpers/ConfigureTestStore';
 import { MockedProvider } from '@apollo/client/testing';
 
 import Posts from '../index';
-import { POSTS_QUERY } from '../graphql';
+import { POST_ADDED_SUBSCRIPTION, POSTS_QUERY } from '../graphql';
 
 // Mock Form required by Posts
 /* eslint-disable react/prop-types */
@@ -30,6 +30,15 @@ const resultPost = {
     name: 'User name',
   },
 };
+const transmittedPost = {
+  id: 2,
+  content: 'Content 2',
+  title: 'Title 2',
+  createdAt: '2020-10-16T15:38:46+02:00',
+  user: {
+    name: 'User name 2',
+  },
+};
 let store;
 let wrapper;
 
@@ -41,6 +50,16 @@ const mocks = () => [
     result: {
       data: {
         posts: [resultPost],
+      },
+    },
+  },
+  {
+    request: {
+      query: POST_ADDED_SUBSCRIPTION,
+    },
+    result: {
+      data: {
+        postAdded: transmittedPost,
       },
     },
   },
@@ -79,6 +98,17 @@ describe('<Posts />', () => {
         wrapper.update();
         expect(wrapper.text()).toContain(
           `Post component ${resultPost.content}`,
+        );
+      });
+    });
+  });
+
+  it('should render transmitted postAdded', async () => {
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+        expect(wrapper.text()).toContain(
+          `Post component ${transmittedPost.content}`,
         );
       });
     });

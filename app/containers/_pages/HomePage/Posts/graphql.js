@@ -13,3 +13,17 @@ export const POSTS_QUERY = gql`
     }
   }
 `;
+
+export const POST_ADDED_SUBSCRIPTION = gql`
+  subscription {
+    postAdded {
+      id
+      content
+      title
+      createdAt
+      user {
+        name
+      }
+    }
+  }
+`;

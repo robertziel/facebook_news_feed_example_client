@@ -8,6 +8,9 @@ const webpack = require('webpack');
 require('dotenv').config({ path: path.resolve(process.cwd(), '.env') });
 
 module.exports = (options) => ({
+  node: {
+    fs: 'empty',
+  },
   mode: options.mode,
   entry: options.entry,
   output: Object.assign(
