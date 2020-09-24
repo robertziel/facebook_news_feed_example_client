@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { useQuery } from 'containers/ApiConnector/apollo/fetchers';
 import { useSubscription } from '@apollo/client';
 
@@ -25,7 +25,15 @@ export default function Posts() {
   });
 
   const renderPosts = () =>
-    posts.map((post) => <Post key={post.id} post={post} />);
+    posts.map((post) => (
+      <CSSTransition key={post.id} timeout={500} classNames="item">
+        <Post post={post} />
+      </CSSTransition>
+    ));
 
-  return <Wrapper>{renderPosts()}</Wrapper>;
+  return (
+    <Wrapper>
+      <TransitionGroup>{renderPosts()}</TransitionGroup>
+    </Wrapper>
+  );
 }
