@@ -15,14 +15,14 @@ import messages from './messages';
 
 export default function HomePage() {
   return (
-    <Grid container>
+    <Grid container justify="center">
       <Grid item xs={12}>
         <H1>
           <FormattedMessage {...messages.header} />
         </H1>
         <Divider />
       </Grid>
-      <Grid item xs={12} md={4}>
+      <Grid item xs={12} md={5}>
         <Posts />
       </Grid>
     </Grid>

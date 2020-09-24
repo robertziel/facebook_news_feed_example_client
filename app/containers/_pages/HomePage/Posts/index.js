@@ -4,6 +4,7 @@ import { useQuery } from 'containers/ApiConnector/apollo/fetchers';
 import { useSubscription } from '@apollo/client';
 
 import Post from './Post';
+import Wrapper from './Wrapper';
 import { POST_ADDED_SUBSCRIPTION, POSTS_QUERY } from './graphql';
 
 export default function Posts() {
@@ -26,5 +27,5 @@ export default function Posts() {
   const renderPosts = () =>
     posts.map((post) => <Post key={post.id} post={post} />);
 
-  return <div>{renderPosts()}</div>;
+  return <Wrapper>{renderPosts()}</Wrapper>;
 }

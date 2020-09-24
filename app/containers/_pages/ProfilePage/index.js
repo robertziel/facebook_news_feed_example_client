@@ -8,14 +8,14 @@ import messages from './messages';
 
 export default function ProfilePage() {
   return (
-    <Grid container>
+    <Grid container justify="center">
       <Grid item xs={12}>
         <H1>
           <FormattedMessage {...messages.header} />
         </H1>
         <Divider />
       </Grid>
-      <Grid item xs={12} md={6} lg={5}>
+      <Grid item sm={12} md={6}>
         <ProfileForm />
       </Grid>
     </Grid>
