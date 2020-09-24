@@ -17,7 +17,9 @@ import { POST_ADDED_SUBSCRIPTION, POSTS_QUERY } from '../graphql';
 // Mock Form required by Posts
 /* eslint-disable react/prop-types */
 jest.mock('containers/_pages/HomePage/Posts/Post', () => ({ post }) => (
-  <div>Post component {post.content}</div>
+  <div>
+    Post component {post.content} {post.newTag ? 'newTag' : null}
+  </div>
 ));
 /* eslint-enable */
 
@@ -92,7 +94,7 @@ describe('<Posts />', () => {
     configureWrapper();
   });
 
-  it('should render Post with post in props', async () => {
+  it('renders Post with post in props', async () => {
     await act(async () => {
       await waitForExpect(() => {
         wrapper.update();
@@ -103,12 +105,12 @@ describe('<Posts />', () => {
     });
   });
 
-  it('should render transmitted postAdded', async () => {
+  it('renders transmitted new post with new tag', async () => {
     await act(async () => {
       await waitForExpect(() => {
         wrapper.update();
         expect(wrapper.text()).toContain(
-          `Post component ${transmittedPost.content}`,
+          `Post component ${transmittedPost.content} newTag`,
         );
       });
     });

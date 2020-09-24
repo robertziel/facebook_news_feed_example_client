@@ -1,3 +1,5 @@
+/* global context */
+
 import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
@@ -11,6 +13,7 @@ import IntlCatcher from 'containers/LanguageProvider/IntlCatcher';
 import ConfigureTestStore from 'testsHelpers/ConfigureTestStore';
 
 import Post from '../Post';
+import messages from '../messages';
 
 const post = {
   id: 1,
@@ -48,11 +51,30 @@ function configureWrapper() {
 }
 
 describe('<Post />', () => {
-  beforeEach(() => {
+  it('renders content', () => {
     configureWrapper();
+    expect(wrapper.text()).toContain(post.content);
   });
 
-  it('should render content', () => {
-    expect(wrapper.text()).toContain(post.content);
+  context('when has newTag defined', () => {
+    beforeEach(() => {
+      post.newTag = true;
+      configureWrapper();
+    });
+
+    it('renders new tag', () => {
+      expect(wrapper.text()).toContain(messages.newTag.defaultMessage);
+    });
+  });
+
+  context('when has newTag is not defined', () => {
+    beforeEach(() => {
+      post.newTag = undefined;
+      configureWrapper();
+    });
+
+    it('does not render new tag', () => {
+      expect(wrapper.text()).not.toContain(messages.newTag.defaultMessage);
+    });
   });
 });

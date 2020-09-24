@@ -13,6 +13,7 @@ export default function Posts() {
   useSubscription(POST_ADDED_SUBSCRIPTION, {
     onSubscriptionData: (data) => {
       const newPost = data.subscriptionData.data.postAdded;
+      newPost.newTag = true;
       setPosts([newPost, ...posts]);
     },
   });
