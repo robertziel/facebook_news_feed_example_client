@@ -18,8 +18,12 @@ import { POST_QUERY } from '../graphql';
 
 /* eslint-disable react/prop-types */
 // Mock Form required by PostPage
-jest.mock('containers/_pages/PostPage/PostContent', () => ({ post }) => (
-  <div>PostContent component {post.content}</div>
+jest.mock('containers/_pages/PostPage/PostSection', () => ({ post }) => (
+  <div>PostSection component {post.content}</div>
+));
+// Mock Form required by PostPage
+jest.mock('containers/_pages/PostPage/CommentsSection', () => ({ post }) => (
+  <div>CommentsSection component {post.id}</div>
 ));
 /* eslint-enable */
 
@@ -82,12 +86,23 @@ describe('<PostPage />', () => {
     configureWrapper();
   });
 
-  it('should render ActiveTokens', async () => {
+  it('should render PostSection with post passed in props', async () => {
     await act(async () => {
       await waitForExpect(() => {
         wrapper.update();
         expect(wrapper.text()).toContain(
-          `PostContent component ${postObject.content}`,
+          `PostSection component ${postObject.content}`,
+        );
+      });
+    });
+  });
+
+  it('should render CommentsSection with post passed in props', async () => {
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+        expect(wrapper.text()).toContain(
+          `CommentsSection component ${postObject.id}`,
         );
       });
     });
