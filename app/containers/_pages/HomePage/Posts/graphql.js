@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const POSTS_QUERY = gql`
-  query {
-    posts {
+  query posts($olderThanId: ID) {
+    posts(olderThanId: $olderThanId) {
       id
       content
       title

@@ -1,3 +1,5 @@
+/* global context */
+
 import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
@@ -13,6 +15,7 @@ import { MockedProvider } from '@apollo/client/testing';
 
 import Posts from '../index';
 import { POST_ADDED_SUBSCRIPTION, POSTS_QUERY } from '../graphql';
+import messages from '../messages';
 
 // Mock Form required by Posts
 /* eslint-disable react/prop-types */
@@ -24,34 +27,66 @@ jest.mock('containers/_pages/HomePage/Posts/Post', () => ({ post }) => (
 /* eslint-enable */
 
 const resultPost = {
-  id: 1,
-  content: 'Content',
-  title: 'Title',
+  id: 2,
+  content: 'resultPostContent',
+  title: 'resultPostTitle',
   createdAt: '2020-09-16T15:38:46+02:00',
   user: {
-    name: 'User name',
+    name: 'resultPostUserName',
   },
 };
 const transmittedPost = {
-  id: 2,
-  content: 'Content 2',
-  title: 'Title 2',
+  id: 3,
+  content: 'transmittedPostContent',
+  title: 'transmittedPostTitle',
   createdAt: '2020-10-16T15:38:46+02:00',
   user: {
-    name: 'User name 2',
+    name: 'transmittedPostUserName',
+  },
+};
+const loadedOnScrollPost = {
+  id: 1,
+  content: 'loadedOnScrollPostContent',
+  title: 'loadedOnScrollPostTitle',
+  createdAt: '2020-10-16T15:38:46+02:00',
+  user: {
+    name: 'loadedOnScrollPostUserName',
   },
 };
 let store;
 let wrapper;
 
-const mocks = () => [
+const mocks = (opts) => [
   {
     request: {
       query: POSTS_QUERY,
     },
     result: {
       data: {
-        posts: [resultPost],
+        posts: opts.resultPosts ? [resultPost] : [],
+      },
+    },
+  },
+  {
+    request: {
+      query: POSTS_QUERY,
+    },
+    result: {
+      data: {
+        posts: opts.resultPosts ? [resultPost] : [],
+      },
+    },
+  }, // fetchPolicy: 'network-only' calls useQuery again during fetchMore, hopefully it is fixed soon : https://github.com/apollographql/apollo-client/issues/6327
+  {
+    request: {
+      query: POSTS_QUERY,
+      variables: {
+        olderThanId: transmittedPost.id,
+      },
+    },
+    result: {
+      data: {
+        posts: opts.loadedOnScrollPosts ? [loadedOnScrollPost] : [],
       },
     },
   },
@@ -67,12 +102,12 @@ const mocks = () => [
   },
 ];
 
-function mountWrapper() {
+function mountWrapper(opts) {
   return mount(
     <IntlProvider locale="en">
       <IntlCatcher>
         <Provider store={store}>
-          <MockedProvider mocks={mocks()} addTypename={false}>
+          <MockedProvider mocks={mocks(opts)} addTypename={false}>
             <div>
               <NotificationSystem />
               <Posts />
@@ -84,34 +119,104 @@ function mountWrapper() {
   );
 }
 
-function configureWrapper() {
+function configureWrapper(opts) {
   store = new ConfigureTestStore().store;
-  wrapper = mountWrapper();
+  wrapper = mountWrapper(opts);
 }
 
 describe('<Posts />', () => {
-  beforeEach(() => {
-    configureWrapper();
-  });
+  context('when post is returned by POSTS_QUERY', () => {
+    beforeEach(() => {
+      configureWrapper({ resultPosts: true });
+    });
 
-  it('renders Post with post in props', async () => {
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
-        expect(wrapper.text()).toContain(
-          `Post component ${resultPost.content}`,
-        );
+    it('renders Post with post in props', async () => {
+      await act(async () => {
+        await waitForExpect(() => {
+          wrapper.update();
+          expect(wrapper.text()).toContain(
+            `Post component ${resultPost.content}`,
+          );
+        });
+      });
+    });
+
+    it('renders transmitted new post with new tag', async () => {
+      await act(async () => {
+        await waitForExpect(() => {
+          wrapper.update();
+          expect(wrapper.text()).toContain(
+            `Post component ${transmittedPost.content} newTag`,
+          );
+        });
+      });
+    });
+
+    context('when post is returned by POSTS_QUERY on fetchMore', () => {
+      beforeEach(() => {
+        configureWrapper({ resultPosts: true, loadedOnScrollPosts: true });
+      });
+
+      it('renders loaded Post with post in props', async () => {
+        await act(async () => {
+          // check if first query loaded before fetchMore
+          await waitForExpect(() => {
+            wrapper.update();
+            expect(wrapper.text()).toContain(
+              `Post component ${resultPost.content}`,
+            );
+          });
+          const infiniteScroll = wrapper.find('InfiniteScroll');
+          infiniteScroll.props().next(); // fetchMore
+          await waitForExpect(() => {
+            expect(wrapper.text()).toContain(
+              `Post component ${loadedOnScrollPost.content}`,
+            );
+          });
+        });
+      });
+    });
+
+    context('when empty array is returned by POSTS_QUERY on fetchMore', () => {
+      beforeEach(() => {
+        configureWrapper({ resultPosts: true });
+      });
+
+      it('renders scrollEnd message', async () => {
+        await act(async () => {
+          // check if first query loaded before fetchMore
+          await waitForExpect(() => {
+            wrapper.update();
+            expect(wrapper.text()).toContain(
+              `Post component ${resultPost.content}`,
+            );
+          });
+          const infiniteScroll = wrapper.find('InfiniteScroll');
+          infiniteScroll.props().next(); // fetchMore
+          await act(async () => {
+            await waitForExpect(() => {
+              wrapper.update();
+              expect(wrapper.text()).toContain(
+                messages.scrollEnd.defaultMessage,
+              );
+            });
+          });
+        });
       });
     });
   });
 
-  it('renders transmitted new post with new tag', async () => {
-    await act(async () => {
-      await waitForExpect(() => {
-        wrapper.update();
-        expect(wrapper.text()).toContain(
-          `Post component ${transmittedPost.content} newTag`,
-        );
+  context('when empty array is returned by POSTS_QUERY', () => {
+    beforeEach(() => {
+      configureWrapper({ resultPosts: false });
+    });
+
+    it('renders scrollEnd message', async () => {
+      await act(async () => {
+        await waitForExpect(() => {
+          wrapper.update();
+          expect(wrapper.text()).toContain(messages.scrollEnd.defaultMessage);
+        });
       });
     });
   });

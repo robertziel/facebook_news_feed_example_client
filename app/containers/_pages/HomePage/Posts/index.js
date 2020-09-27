@@ -1,14 +1,27 @@
 import React, { useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { Facebook } from 'react-content-loader';
+import { FormattedMessage } from 'react-intl';
 import { useQuery } from 'containers/ApiConnector/apollo/fetchers';
 import { useSubscription } from '@apollo/client';
+import { colors } from 'styles/constants';
+import { Card, CardContent } from '@material-ui/core';
 
 import Post from './Post';
 import Wrapper from './Wrapper';
 import { POST_ADDED_SUBSCRIPTION, POSTS_QUERY } from './graphql';
+import messages from './messages';
 
 export default function Posts() {
   const [posts, setPosts] = useState([]);
+  const [moreToLoad, setMoreToLoad] = useState(true);
+
+  const detectLastPost = (loadedPosts) => {
+    if (loadedPosts.length === 0) {
+      setMoreToLoad(false);
+    }
+  };
 
   useSubscription(POST_ADDED_SUBSCRIPTION, {
     onSubscriptionData: (data) => {
@@ -18,9 +31,10 @@ export default function Posts() {
     },
   });
 
-  useQuery(POSTS_QUERY, {
+  const { fetchMore } = useQuery(POSTS_QUERY, {
     onCompleted: (data) => {
       setPosts(data.posts);
+      detectLastPost(data.posts);
     },
     fetchPolicy: 'network-only',
   });
@@ -32,9 +46,49 @@ export default function Posts() {
       </CSSTransition>
     ));
 
+  const handleLoadMore = () => {
+    const lastPost = posts[posts.length - 1];
+
+    if (lastPost) {
+      fetchMore({
+        variables: {
+          olderThanId: lastPost.id,
+        },
+        updateQuery(previousResult, { fetchMoreResult }) {
+          setPosts([...posts, ...fetchMoreResult.posts]);
+          detectLastPost(fetchMoreResult.posts);
+        },
+      });
+    }
+  };
+
+  const endMessage = () => (
+    <Card>
+      <CardContent>
+        <FormattedMessage {...messages.scrollEnd} />
+      </CardContent>
+    </Card>
+  );
+
+  const loader = () => (
+    <Card>
+      <CardContent>
+        <Facebook backgroundColor={colors.lightMain} />
+      </CardContent>
+    </Card>
+  );
+
   return (
     <Wrapper>
-      <TransitionGroup>{renderPosts()}</TransitionGroup>
+      <InfiniteScroll
+        dataLength={posts.length}
+        next={handleLoadMore}
+        hasMore={moreToLoad}
+        loader={loader()}
+        endMessage={endMessage()}
+      >
+        <TransitionGroup>{renderPosts()}</TransitionGroup>
+      </InfiniteScroll>
     </Wrapper>
   );
 }

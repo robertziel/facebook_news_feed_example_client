@@ -7,4 +7,8 @@ export default defineMessages({
     id: `${scope}.newTag`,
     defaultMessage: 'Just added!',
   },
+  scrollEnd: {
+    id: `${scope}.scrollEnd`,
+    defaultMessage: 'No more posts to show.',
+  },
 });
