@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'containers/ApiConnector/apollo/fetchers';
 import FetchedContent from 'containers/FetchedContent';
-import PostContent from './PostContent';
+import PostSection from './PostSection';
 import { POST_QUERY } from './graphql';
 
 export default function PostPage() {
@@ -18,7 +18,7 @@ export default function PostPage() {
 
   return (
     <FetchedContent processing={post === undefined || loading}>
-      <PostContent post={post} />
+      <PostSection post={post} />
     </FetchedContent>
   );
 }

@@ -10,7 +10,7 @@ import NotificationSystem from 'containers/NotificationsSystem';
 import IntlCatcher from 'containers/LanguageProvider/IntlCatcher';
 import ConfigureTestStore from 'testsHelpers/ConfigureTestStore';
 
-import PostContent from '../PostContent';
+import PostSection from '../PostSection';
 
 const post = {
   id: 1,
@@ -33,7 +33,7 @@ function mountWrapper() {
           <ConnectedRouter history={history}>
             <div>
               <NotificationSystem />
-              <PostContent post={post} />
+              <PostSection post={post} />
             </div>
           </ConnectedRouter>
         </Provider>
@@ -47,7 +47,7 @@ function configureWrapper() {
   wrapper = mountWrapper();
 }
 
-describe('<PostContent />', () => {
+describe('<PostSection />', () => {
   beforeEach(() => {
     configureWrapper();
   });

@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import formattedDateTime from 'utils/formattedDateTime';
 
-export default function PostContent({ post }) {
+export default function PostSection({ post }) {
   const image = 'https://www.w3schools.com/w3images/avatar2.png';
 
   return (
@@ -38,6 +38,6 @@ export default function PostContent({ post }) {
   );
 }
 
-PostContent.propTypes = {
+PostSection.propTypes = {
   post: PropTypes.object.isRequired,
 };
