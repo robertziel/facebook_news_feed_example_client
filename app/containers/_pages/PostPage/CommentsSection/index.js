@@ -9,6 +9,7 @@ import { colors } from 'styles/constants';
 import { Card, CardContent } from '@material-ui/core';
 
 import Comment from './Comment';
+import Form from './Form';
 import Wrapper from './Wrapper';
 import { COMMENTS_QUERY } from './graphql';
 import messages from './messages';
@@ -76,6 +77,7 @@ export default function CommentsSection({ post }) {
 
   return (
     <Wrapper>
+      <Form postId={post.id} />
       <InfiniteScroll
         dataLength={comments.length}
         next={handleLoadMore}

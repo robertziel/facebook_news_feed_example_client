@@ -27,6 +27,9 @@ jest.mock(
     </div>
   ),
 );
+jest.mock('containers/_pages/PostPage/CommentsSection/Form', () => () => (
+  <div>Form component</div>
+));
 /* eslint-enable */
 
 // Posts
@@ -120,12 +123,20 @@ function mountWrapper(opts) {
   );
 }
 
-function configureWrapper(opts) {
+function configureWrapper(opts = {}) {
   store = new ConfigureTestStore().store;
   wrapper = mountWrapper(opts);
 }
 
 describe('<CommentsSection />', () => {
+  it('renders Form component', async () => {
+    configureWrapper();
+    await waitForExpect(() => {
+      wrapper.update();
+      expect(wrapper.text()).toContain('Form component');
+    });
+  });
+
   context('when comment is returned by COMMENTS_QUERY', () => {
     beforeEach(() => {
       configureWrapper({ resultComments: true });
