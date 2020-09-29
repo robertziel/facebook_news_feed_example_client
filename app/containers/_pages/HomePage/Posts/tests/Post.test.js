@@ -17,7 +17,7 @@ import messages from '../messages';
 
 const post = {
   id: 1,
-  content: 'Content',
+  truncatedContent: 'Content',
   title: 'Title',
   createdAt: '2020-09-16T15:38:46+02:00',
   user: {
@@ -51,9 +51,9 @@ function configureWrapper() {
 }
 
 describe('<Post />', () => {
-  it('renders content', () => {
+  it('renders truncatedContent', () => {
     configureWrapper();
-    expect(wrapper.text()).toContain(post.content);
+    expect(wrapper.text()).toContain(post.truncatedContent);
   });
 
   context('when has newTag defined', () => {

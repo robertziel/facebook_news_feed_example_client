@@ -4,7 +4,7 @@ export const POSTS_QUERY = gql`
   query posts($olderThanId: ID) {
     posts(olderThanId: $olderThanId) {
       id
-      content
+      truncatedContent
       title
       createdAt
       user {

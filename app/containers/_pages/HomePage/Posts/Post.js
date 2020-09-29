@@ -46,11 +46,11 @@ function Post({ post }) {
       ></CardHeader>
       <CardActionArea onClick={() => history.push(`/post/${post.id}`)}>
         <CardContent>
-          <Typography gutterBottom component="h2">
+          <Typography gutterBottom component="h2" variant="h6">
             {post.title}
           </Typography>
           <Typography component="span" align="center">
-            {post.content}
+            {post.truncatedContent}
           </Typography>
         </CardContent>
       </CardActionArea>
