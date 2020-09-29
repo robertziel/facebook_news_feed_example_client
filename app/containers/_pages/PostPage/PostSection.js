@@ -24,10 +24,19 @@ export default function PostSection({ post }) {
             subheader={formattedDateTime(post.createdAt)}
           />
           <CardContent>
-            <Typography gutterBottom variant="body1" component="h1">
+            <Typography
+              gutterBottom
+              component="h1"
+              style={{ fontSize: '25px' }}
+              align="center"
+            >
               {post.title}
             </Typography>
-            <Typography variant="body2" component="span" align="center">
+            <Typography
+              component="p"
+              paragraph
+              style={{ whiteSpace: 'pre-line' }}
+            >
               {post.content}
             </Typography>
           </CardContent>
