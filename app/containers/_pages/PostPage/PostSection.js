@@ -12,14 +12,12 @@ import {
 import formattedDateTime from 'utils/formattedDateTime';
 
 export default function PostSection({ post }) {
-  const image = 'https://www.w3schools.com/w3images/avatar2.png';
-
   return (
     <Grid container>
       <Grid item md={12}>
         <Card>
           <CardHeader
-            avatar={<Avatar src={image} />}
+            avatar={<Avatar src={post.user.avatar} />}
             title={post.user.name}
             subheader={formattedDateTime(post.createdAt)}
           />

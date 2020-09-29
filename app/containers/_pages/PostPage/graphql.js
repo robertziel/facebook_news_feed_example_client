@@ -8,6 +8,7 @@ export const POST_QUERY = gql`
       title
       createdAt
       user {
+        avatar
         name
       }
     }

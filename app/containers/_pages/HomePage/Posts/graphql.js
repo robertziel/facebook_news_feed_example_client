@@ -8,6 +8,7 @@ export const POSTS_QUERY = gql`
       title
       createdAt
       user {
+        avatar
         name
       }
     }
@@ -22,6 +23,7 @@ export const POST_ADDED_SUBSCRIPTION = gql`
       title
       createdAt
       user {
+        avatar
         name
       }
     }

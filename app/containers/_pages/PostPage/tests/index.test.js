@@ -36,6 +36,7 @@ const postObject = {
   title: 'Title',
   createdAt: '2020-09-16T15:38:46+02:00',
   user: {
+    avatar: 'http://image.jpg/',
     name: 'User name',
   },
 };

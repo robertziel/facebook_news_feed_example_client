@@ -12,8 +12,6 @@ import {
 import messages from './messages';
 
 function Comment({ comment }) {
-  const image = 'https://www.w3schools.com/w3images/avatar2.png';
-
   const date = new Date(comment.createdAt);
 
   const newTag = () => {
@@ -35,7 +33,7 @@ function Comment({ comment }) {
       {newTag()}
 
       <CardHeader
-        avatar={<Avatar src={image} />}
+        avatar={<Avatar src={comment.user.avatar} />}
         title={comment.user.name}
         subheader={date.toDateString()}
       ></CardHeader>

@@ -17,8 +17,6 @@ import {
 import messages from './messages';
 
 function Post({ post }) {
-  const image = 'https://www.w3schools.com/w3images/avatar2.png';
-
   const date = new Date(post.createdAt);
 
   const newTag = () => {
@@ -40,7 +38,7 @@ function Post({ post }) {
       {newTag()}
 
       <CardHeader
-        avatar={<Avatar src={image} />}
+        avatar={<Avatar src={post.user.avatar} />}
         title={post.user.name}
         subheader={date.toDateString()}
       ></CardHeader>
