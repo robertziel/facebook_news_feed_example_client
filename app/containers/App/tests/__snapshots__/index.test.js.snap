@@ -3,8 +3,12 @@
 exports[`<App /> should match snapshot 1`] = `
 <ContentWrapper>
   <Navbar />
-  <Container>
-    <Scroll>
+  <Scroll
+    id="main-scroll"
+  >
+    <Container
+      id="main-container"
+    >
       <Switch>
         <Route
           component={[Function]}
@@ -32,8 +36,8 @@ exports[`<App /> should match snapshot 1`] = `
           />
         </Route>
       </Switch>
-    </Scroll>
-  </Container>
+    </Container>
+  </Scroll>
   <Footer />
 </ContentWrapper>
 `;

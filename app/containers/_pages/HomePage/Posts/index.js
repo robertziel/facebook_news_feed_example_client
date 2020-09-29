@@ -86,6 +86,7 @@ export default function Posts() {
         hasMore={moreToLoad}
         loader={loader()}
         endMessage={endMessage()}
+        scrollableTarget="main-scroll"
       >
         <TransitionGroup>{renderPosts()}</TransitionGroup>
       </InfiniteScroll>

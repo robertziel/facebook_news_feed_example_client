@@ -26,8 +26,8 @@ function App() {
   return (
     <ContentWrapper>
       <Navbar />
-      <Container>
-        <Scroll>
+      <Scroll id="main-scroll">
+        <Container id="main-container">
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/new-post" component={NewPostPage} />
@@ -37,8 +37,8 @@ function App() {
               <Redirect to="/" />
             </Route>
           </Switch>
-        </Scroll>
-      </Container>
+        </Container>
+      </Scroll>
       <Footer />
     </ContentWrapper>
   );
