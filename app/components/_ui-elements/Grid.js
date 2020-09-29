@@ -3,24 +3,10 @@ import React from 'react';
 
 import GridCore from '@material-ui/core/Grid';
 
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
-const Grid = styled(({ fullHeight, fullHeightMinusHeader, ...props }) => (
-  <GridCore {...props} />
-))`
+const Grid = styled(({ ...props }) => <GridCore {...props} />)`
   padding: 10px;
-
-  ${({ fullHeight }) =>
-    fullHeight &&
-    css`
-      height: 100%;
-    `}
-
-  ${({ fullHeightMinusHeader }) =>
-    fullHeightMinusHeader &&
-    css`
-      height: calc(100% - 100px);
-    `}
 `;
 
 export { Grid };
