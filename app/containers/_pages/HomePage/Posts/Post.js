@@ -56,7 +56,7 @@ function Post({ post }) {
       </CardActionArea>
       <CardActions>
         <Button size="small" component={Link} to={`/post/${post.id}`}>
-          Learn More
+          <FormattedMessage {...messages.readMore} />
         </Button>
       </CardActions>
     </Card>

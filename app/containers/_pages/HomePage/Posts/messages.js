@@ -11,4 +11,8 @@ export default defineMessages({
     id: `${scope}.scrollEnd`,
     defaultMessage: 'No more posts to show.',
   },
+  readMore: {
+    id: `${scope}.readMore`,
+    defaultMessage: 'Read more...',
+  },
 });
