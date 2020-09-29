@@ -10,7 +10,15 @@ import NotificationSystem from 'containers/NotificationsSystem';
 import IntlCatcher from 'containers/LanguageProvider/IntlCatcher';
 import ConfigureTestStore from 'testsHelpers/ConfigureTestStore';
 
-import PostSection from '../PostSection';
+import DeleteButton from '../DeleteButton';
+import PostSection from '../index';
+
+// Mock DeleteButton required by PostSection index
+/* eslint-disable react/prop-types */
+jest.mock('containers/_pages/PostPage/PostSection/DeleteButton', () => () => (
+  <div>DeleteButton</div>
+));
+/* eslint-enable */
 
 const post = {
   id: 1,
@@ -52,7 +60,12 @@ describe('<PostSection />', () => {
     configureWrapper();
   });
 
-  it('should render content', () => {
+  it('renders content', () => {
     expect(wrapper.text()).toContain(post.content);
+  });
+
+  it('renders DeleteButton with postId param', () => {
+    const deleteButtonElement = wrapper.find(DeleteButton);
+    expect(deleteButtonElement.props().postId).toEqual(post.id);
   });
 });

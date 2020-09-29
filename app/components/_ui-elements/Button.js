@@ -4,7 +4,9 @@ import ButtonCore from '@material-ui/core/Button';
 import styled, { css } from 'styled-components';
 import { colors } from 'styles/constants';
 
-const Button = styled(({ navbar, ...props }) => <ButtonCore {...props} />)`
+const Button = styled(({ navbar, color, ...props }) => (
+  <ButtonCore {...props} />
+))`
   &.MuiButton-root {
     border-radius: 0%;
     width: 100%;
@@ -34,6 +36,22 @@ const Button = styled(({ navbar, ...props }) => <ButtonCore {...props} />)`
           color: #495057;
           font-size: 30px;
           transition: color 100ms linear;
+        }
+      }
+    `}
+
+  ${({ color }) =>
+    color === 'secondary' &&
+    css`
+      &.MuiButton-root {
+        &:hover,
+        &.active {
+          background: ${colors.warningButtonLight};
+          color: ${colors.warningButton};
+
+          span {
+            color: ${colors.warningButton};
+          }
         }
       }
     `}
