@@ -1,11 +1,8 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { ApolloLink } from 'apollo-link';
-import { contextLink, errorLink, protocolLink, retryLink } from './links';
-
-const link = ApolloLink.from([retryLink, errorLink, contextLink, protocolLink]);
+import mainLink from './links';
 
 const client = new ApolloClient({
-  link,
+  link: mainLink,
   cache: new InMemoryCache(),
 });
 

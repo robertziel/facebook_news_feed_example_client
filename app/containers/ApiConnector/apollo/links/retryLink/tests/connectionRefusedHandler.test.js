@@ -15,7 +15,7 @@ import {
   reportConnectionSucceeded,
 } from '../connectionRefusedHandler';
 
-import messages from '../../../../messages';
+import messages from '../messages';
 
 const connectionRefusedNotifySelector = notificationMessageSelector(
   messages.connectionRefusedNotify.defaultMessage,
@@ -111,7 +111,7 @@ describe('<connectionRefusedHandler />', () => {
         reportConnectionRefused();
       });
 
-      it('should remove error notification', () => {
+      it('removes error notification', () => {
         reportConnectionSucceeded();
         wrapper.update();
         expect(wrapper.exists(connectionRefusedNotifySelector)).toBe(false);
@@ -120,7 +120,7 @@ describe('<connectionRefusedHandler />', () => {
         ).toBe(false);
       });
 
-      it('should make possible to rerender notification on next connection refused', () => {
+      it('makes possible to rerender notification on next connection refused', () => {
         reportConnectionSucceeded();
         reportConnectionRefused();
         wrapper.update();
@@ -142,7 +142,7 @@ describe('<connectionRefusedHandler />', () => {
             component.mount();
           });
 
-          it('should shift and call all queued fetches', () => {
+          it('shifts and calls all queued fetches', () => {
             reportConnectionSucceeded();
             expect(mockFunction).toHaveBeenCalledTimes(2);
 
@@ -157,7 +157,7 @@ describe('<connectionRefusedHandler />', () => {
             component.unmount();
           });
 
-          it('should shift all queued fetches without calling them', () => {
+          it('shifts all queued fetches without calling them', () => {
             reportConnectionSucceeded();
             expect(mockFunction).toHaveBeenCalledTimes(0);
 
@@ -171,7 +171,7 @@ describe('<connectionRefusedHandler />', () => {
     });
 
     context('notification does not exist', () => {
-      it('should do nothing', () => {
+      it('does nothing', () => {
         const htmlBefore = wrapper.html();
         reportConnectionSucceeded();
         wrapper.update();

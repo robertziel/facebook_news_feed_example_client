@@ -7,7 +7,6 @@ export default class RetryableOperation {
   constructor(operation, nextLink) {
     this.operation = operation;
     this.nextLink = nextLink;
-    this.retryCount = 0;
     this.values = [];
     this.complete = false;
     this.canceled = false;
@@ -36,6 +35,7 @@ export default class RetryableOperation {
           if (observer) {
             observer.complete();
           }
+          reportConnectionRefused({ isMounted: true });
         });
       } else {
         const object = this;
@@ -53,11 +53,6 @@ export default class RetryableOperation {
    * immediately triggered for the observer.
    */
   subscribe(observer) {
-    if (this.canceled) {
-      throw new Error(
-        `Subscribing to a retryable link that was canceled is not supported`,
-      );
-    }
     this.observers.push(observer);
     // If we've already begun, catch this observer up.
     this.values.forEach((value) => {
@@ -65,8 +60,6 @@ export default class RetryableOperation {
     });
     if (this.complete) {
       observer.complete();
-    } else if (this.error) {
-      observer.error(this.error);
     }
   }
 
@@ -78,11 +71,6 @@ export default class RetryableOperation {
    */
   unsubscribe(observer) {
     const index = this.observers.indexOf(observer);
-    if (index < 0) {
-      throw new Error(
-        `RetryLink BUG! Attempting to unsubscribe unknown observer!`,
-      );
-    }
     // Note that we are careful not to change the order of length of the array,
     // as we are often mid-iteration when calling this method.
     this.observers[index] = null;

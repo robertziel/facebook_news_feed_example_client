@@ -12,7 +12,6 @@ import NotificationSystem from 'containers/NotificationsSystem';
 import ConfigureTestStore from 'testsHelpers/ConfigureTestStore';
 import { MockedProvider } from '@apollo/client/testing';
 
-import backendApiConnectorMessages from 'containers/ApiConnector/messages';
 import IntlCatcher from 'containers/LanguageProvider/IntlCatcher';
 import Form from '../Form';
 import messages from '../messages';
@@ -114,11 +113,6 @@ describe('<Form />', () => {
         waitForExpect(() => {
           wrapper.update();
           expect(wrapper.contains(errorMessage)).toEqual(true);
-          expect(
-            wrapper.contains(
-              backendApiConnectorMessages.unauthorizedNotify.defaultMessage,
-            ),
-          ).toEqual(false);
         });
       });
     });
