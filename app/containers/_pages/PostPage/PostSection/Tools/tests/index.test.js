@@ -14,13 +14,14 @@ import IntlCatcher from 'containers/LanguageProvider/IntlCatcher';
 import ConfigureTestStore from 'testsHelpers/ConfigureTestStore';
 
 import Tools from '../index';
-import DeleteButton from '../../DeleteButton';
+import DeleteButton from '../DeleteButton';
 
 // Mock DeleteButton required by Tools index
 /* eslint-disable react/prop-types */
-jest.mock('containers/_pages/PostPage/PostSection/DeleteButton', () => () => (
-  <div>DeleteButton</div>
-));
+jest.mock(
+  'containers/_pages/PostPage/PostSection/Tools/DeleteButton',
+  () => () => <div>DeleteButton</div>,
+);
 /* eslint-enable */
 
 const currentUser = { id: 23, name: 'User' };

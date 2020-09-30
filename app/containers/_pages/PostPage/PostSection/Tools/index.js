@@ -8,7 +8,7 @@ import { NavLink } from 'react-router-dom';
 import { Button } from 'components/_ui-elements';
 import FontAwesome from 'react-fontawesome';
 
-import DeleteButton from '../DeleteButton';
+import DeleteButton from './DeleteButton';
 import Wrapper from './Wrapper';
 
 function Tools({ currentUser, post }) {
