@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -8,10 +9,12 @@ import { Button } from '../Button';
 function SubmitButton({
   children,
   color,
+  disableSpinner,
   onClick,
   navbar,
   processing,
   spinner,
+  ...props
 }) {
   const getColor = () => {
     switch (color) {
@@ -33,8 +36,9 @@ function SubmitButton({
       disabled={processing}
       onClick={onClick}
       navbar={navbar}
+      {...props}
     >
-      {processing ? spinnerElement : children}
+      {processing && !disableSpinner ? spinnerElement : children}
     </Button>
   );
 }
@@ -42,6 +46,7 @@ function SubmitButton({
 SubmitButton.propTypes = {
   children: PropTypes.node.isRequired,
   color: PropTypes.string,
+  disableSpinner: PropTypes.bool,
   onClick: PropTypes.func,
   navbar: PropTypes.bool,
   processing: PropTypes.bool,

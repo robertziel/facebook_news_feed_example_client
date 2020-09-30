@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import {
   Avatar,
+  CardActions,
   CardContent,
   CardHeader,
   Chip,
   Typography,
 } from '@material-ui/core';
 import { Paper } from 'components/_ui-elements';
+
+import Reactions from './Reactions';
 import messages from './messages';
 
 function Comment({ comment }) {
@@ -42,6 +45,9 @@ function Comment({ comment }) {
           {comment.content}
         </Typography>
       </CardContent>
+      <CardActions>
+        <Reactions comment={comment} />
+      </CardActions>
     </Paper>
   );
 }

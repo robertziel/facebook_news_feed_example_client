@@ -13,7 +13,15 @@ import IntlCatcher from 'containers/LanguageProvider/IntlCatcher';
 import ConfigureTestStore from 'testsHelpers/ConfigureTestStore';
 
 import Comment from '../Comment';
+import Reactions from '../Reactions';
 import messages from '../messages';
+
+// Mock Reactions required by Comment
+/* eslint-disable react/prop-types */
+jest.mock('containers/_pages/PostPage/CommentsSection/Reactions', () => () => (
+  <div>Reactions</div>
+));
+/* eslint-enable */
 
 const comment = {
   id: 1,
@@ -54,6 +62,12 @@ describe('<Comment />', () => {
   it('renders content', () => {
     configureWrapper();
     expect(wrapper.text()).toContain(comment.content);
+  });
+
+  it('renders <Reactions /> with comment in props', async () => {
+    configureWrapper();
+    expect(wrapper.exists(Reactions)).toBe(true);
+    expect(wrapper.find(Reactions).props().comment).toEqual(comment);
   });
 
   context('when has newTag defined', () => {

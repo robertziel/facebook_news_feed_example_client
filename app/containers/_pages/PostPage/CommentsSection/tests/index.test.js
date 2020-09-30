@@ -27,6 +27,7 @@ jest.mock(
     </div>
   ),
 );
+// Mock Comment required by CommentsSection
 jest.mock('containers/_pages/PostPage/CommentsSection/Form', () => () => (
   <div>Form component</div>
 ));

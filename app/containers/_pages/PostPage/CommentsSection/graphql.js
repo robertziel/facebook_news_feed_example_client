@@ -6,6 +6,10 @@ export const COMMENTS_QUERY = gql`
       id
       content
       createdAt
+      likeReactionsCount
+      smileReactionsCount
+      thumbsUpReactionsCount
+      currentUserReactionType
       user {
         id
         avatar
@@ -21,6 +25,9 @@ export const COMMENT_ADDED_SUBSCRIPTION = gql`
       id
       content
       createdAt
+      likeReactionsCount
+      smileReactionsCount
+      thumbsUpReactionsCount
       user {
         id
         avatar
