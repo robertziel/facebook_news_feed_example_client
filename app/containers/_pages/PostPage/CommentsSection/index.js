@@ -7,7 +7,8 @@ import { FormattedMessage } from 'react-intl';
 import { useQuery } from 'containers/ApiConnector/apollo/fetchers';
 import { useSubscription } from '@apollo/client';
 import { colors } from 'styles/constants';
-import { Card, CardContent } from '@material-ui/core';
+import { CardContent } from '@material-ui/core';
+import { Divider, Grid, Paper } from 'components/_ui-elements';
 
 import Comment from './Comment';
 import Form from './Form';
@@ -50,7 +51,9 @@ export default function CommentsSection({ post }) {
   const renderComments = () =>
     comments.map((comment) => (
       <CSSTransition key={comment.id} timeout={500} classNames="item">
-        <Comment comment={comment} />
+        <Grid>
+          <Comment comment={comment} />
+        </Grid>
       </CSSTransition>
     ));
 
@@ -72,23 +75,34 @@ export default function CommentsSection({ post }) {
   };
 
   const endMessage = () => (
-    <Card>
-      <CardContent>
-        <FormattedMessage {...messages.scrollEnd} />
-      </CardContent>
-    </Card>
+    <Grid>
+      <Paper comment>
+        <CardContent>
+          <FormattedMessage {...messages.scrollEnd} />
+        </CardContent>
+      </Paper>
+    </Grid>
   );
 
   const loader = () => (
-    <Card>
-      <CardContent>
-        <Facebook backgroundColor={colors.lightMain} />
-      </CardContent>
-    </Card>
+    <Grid>
+      <Paper comment>
+        <CardContent>
+          <Facebook backgroundColor={colors.lightMain} />
+        </CardContent>
+      </Paper>
+    </Grid>
   );
 
   return (
     <Wrapper>
+      <Grid>
+        <Divider />
+        <br />
+        <h2>
+          <FormattedMessage {...messages.title} />
+        </h2>
+      </Grid>
       <Form postId={post.id} />
       <InfiniteScroll
         dataLength={comments.length}

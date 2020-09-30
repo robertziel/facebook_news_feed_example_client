@@ -7,7 +7,9 @@ import styled, { css } from 'styled-components';
 
 import { colors } from 'styles/constants';
 
-const Paper = styled(({ topLine, ...props }) => <PaperCore {...props} />)`
+const Paper = styled(({ comment, topLine, ...props }) => (
+  <PaperCore {...props} />
+))`
   &.MuiPaper-root {
     box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05),
       0 1px 3px 0 rgba(63, 63, 68, 0.15);
@@ -20,6 +22,12 @@ const Paper = styled(({ topLine, ...props }) => <PaperCore {...props} />)`
     topLine &&
     css`
       border-top: 4px solid ${colors.main};
+    `}
+
+  ${({ comment }) =>
+    comment &&
+    css`
+      border: 5px #f3f6f8 solid;
     `}
 `;
 

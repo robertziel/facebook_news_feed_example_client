@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'containers/ApiConnector/apollo/fetchers';
 import FetchedContent from 'containers/FetchedContent';
+import { Grid, Paper } from 'components/_ui-elements';
 import CommentsSection from './CommentsSection';
 import PostSection from './PostSection';
 import { POST_QUERY } from './graphql';
@@ -19,11 +20,17 @@ export default function PostPage() {
   });
 
   return (
-    <FetchedContent processing={post === undefined || loading}>
-      <div>
-        <PostSection post={post} />
-        <CommentsSection post={post} />
-      </div>
-    </FetchedContent>
+    <Grid container>
+      <Grid item>
+        <Paper topLine>
+          <FetchedContent processing={post === undefined || loading}>
+            <div>
+              <PostSection post={post} />
+              <CommentsSection post={post} />
+            </div>
+          </FetchedContent>
+        </Paper>
+      </Grid>
+    </Grid>
   );
 }

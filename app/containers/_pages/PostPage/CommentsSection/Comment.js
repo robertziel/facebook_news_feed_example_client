@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import {
   Avatar,
-  Card,
   CardContent,
   CardHeader,
   Chip,
   Typography,
 } from '@material-ui/core';
+import { Paper } from 'components/_ui-elements';
 import messages from './messages';
 
 function Comment({ comment }) {
@@ -29,7 +29,7 @@ function Comment({ comment }) {
   };
 
   return (
-    <Card>
+    <Paper comment>
       {newTag()}
 
       <CardHeader
@@ -42,7 +42,7 @@ function Comment({ comment }) {
           {comment.content}
         </Typography>
       </CardContent>
-    </Card>
+    </Paper>
   );
 }
 
