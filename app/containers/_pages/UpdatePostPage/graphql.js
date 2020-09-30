@@ -9,8 +9,6 @@ export const POST_QUERY = gql`
       createdAt
       user {
         id
-        avatar
-        name
       }
     }
   }

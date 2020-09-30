@@ -13,17 +13,19 @@ import waitForExpect from 'wait-for-expect';
 import IntlCatcher from 'containers/LanguageProvider/IntlCatcher';
 import ConfigureTestStore from 'testsHelpers/ConfigureTestStore';
 
+import CommentsSection from '../CommentsSection';
+import PostSection from '../PostSection';
 import PostPage from '../Loadable';
 import { POST_QUERY } from '../graphql';
 
 /* eslint-disable react/prop-types */
-// Mock Form required by PostPage
-jest.mock('containers/_pages/PostPage/PostSection', () => ({ post }) => (
-  <div>PostSection component {post.content}</div>
+// Mock PostSection required by PostPage
+jest.mock('containers/_pages/PostPage/PostSection', () => () => (
+  <div>PostSection</div>
 ));
-// Mock Form required by PostPage
-jest.mock('containers/_pages/PostPage/CommentsSection', () => ({ post }) => (
-  <div>CommentsSection component {post.id}</div>
+// Mock CommentsSection required by PostPage
+jest.mock('containers/_pages/PostPage/CommentsSection', () => () => (
+  <div>CommentsSection</div>
 ));
 /* eslint-enable */
 
@@ -36,6 +38,7 @@ const postObject = {
   title: 'Title',
   createdAt: '2020-09-16T15:38:46+02:00',
   user: {
+    id: 1,
     avatar: 'http://image.jpg/',
     name: 'User name',
   },
@@ -91,9 +94,8 @@ describe('<PostPage />', () => {
     await act(async () => {
       await waitForExpect(() => {
         wrapper.update();
-        expect(wrapper.text()).toContain(
-          `PostSection component ${postObject.content}`,
-        );
+        expect(wrapper.exists(PostSection)).toBe(true);
+        expect(wrapper.find(PostSection).props().post).toEqual(postObject);
       });
     });
   });
@@ -102,9 +104,8 @@ describe('<PostPage />', () => {
     await act(async () => {
       await waitForExpect(() => {
         wrapper.update();
-        expect(wrapper.text()).toContain(
-          `CommentsSection component ${postObject.id}`,
-        );
+        expect(wrapper.exists(CommentsSection)).toBe(true);
+        expect(wrapper.find(CommentsSection).props().post).toEqual(postObject);
       });
     });
   });

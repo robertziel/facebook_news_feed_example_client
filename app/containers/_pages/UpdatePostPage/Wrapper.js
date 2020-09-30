@@ -3,8 +3,9 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  .tools {
-    float: right;
+  .MuiPaper-root {
+    position: relative;
+    min-height: 400px;
   }
 `;
 

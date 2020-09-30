@@ -15,6 +15,7 @@ export default function PostPage() {
     onCompleted: (data) => {
       setPost(data.post);
     },
+    fetchPolicy: 'network-only',
   });
 
   return (

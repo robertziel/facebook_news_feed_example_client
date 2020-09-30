@@ -17,6 +17,7 @@ import Footer from 'components/Footer/index';
 
 import HomePage from 'containers/_pages/HomePage/Loadable';
 import NewPostPage from 'containers/_pages/NewPostPage/Loadable';
+import UpdatePostPage from 'containers/_pages/UpdatePostPage/Loadable';
 import PostPage from 'containers/_pages/PostPage/Loadable';
 import ProfilePage from 'containers/_pages/ProfilePage/Loadable';
 
@@ -31,6 +32,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/new-post" component={NewPostPage} />
+            <Route exact path="/post/:id/update" component={UpdatePostPage} />
             <Route exact path="/post/:id" component={PostPage} />
             <Route exact path="/profile" component={ProfilePage} />
             <Route>

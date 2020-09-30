@@ -16,7 +16,7 @@ import { setAuthenticationToken } from '../actions';
 import CurrentUserLoader from '../CurrentUserLoader';
 
 const authenticationToken = 'a token';
-const currentUser = { name: 'User' };
+const currentUser = { id: 1, name: 'User' };
 
 const mockResponse = currentUser;
 const mocks = () => [
