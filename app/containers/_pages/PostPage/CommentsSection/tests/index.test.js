@@ -14,7 +14,7 @@ import ConfigureTestStore from 'testsHelpers/ConfigureTestStore';
 import { MockedProvider } from '@apollo/client/testing';
 
 import CommentsSection from '../index';
-import { COMMENTS_QUERY } from '../graphql';
+import { COMMENTS_QUERY, COMMENT_ADDED_SUBSCRIPTION } from '../graphql';
 import messages from '../messages';
 
 // Mock Form required by CommentsSection
@@ -49,6 +49,8 @@ const resultComment = {
   content: 'resultCommentContent',
   createdAt: '2020-09-16T15:38:46+02:00',
   user: {
+    id: 1,
+    avatar: 'http://example-avatar.jpg',
     name: 'resultCommentUserName',
   },
 };
@@ -57,7 +59,19 @@ const loadedOnScrollComment = {
   content: 'loadedOnScrollCommentContent',
   createdAt: '2020-10-16T15:38:46+02:00',
   user: {
+    id: 1,
+    avatar: 'http://example-avatar.jpg',
     name: 'loadedOnScrollCommentUserName',
+  },
+};
+const transmittedComment = {
+  id: 3,
+  content: 'transmittedCommentContent',
+  createdAt: '2020-10-16T15:38:46+02:00',
+  user: {
+    id: 1,
+    avatar: 'http://example-avatar.jpg',
+    name: 'transmittedCommentUserName',
   },
 };
 let store;
@@ -94,13 +108,26 @@ const mocks = (opts) => [
     request: {
       query: COMMENTS_QUERY,
       variables: {
-        olderThanId: resultComment.id,
+        olderThanId: transmittedComment.id,
         postId: postObject.id,
       },
     },
     result: {
       data: {
         comments: opts.loadedOnScrollComments ? [loadedOnScrollComment] : [],
+      },
+    },
+  },
+  {
+    request: {
+      query: COMMENT_ADDED_SUBSCRIPTION,
+      variables: {
+        postId: postObject.id,
+      },
+    },
+    result: {
+      data: {
+        commentAdded: transmittedComment,
       },
     },
   },
@@ -131,9 +158,11 @@ function configureWrapper(opts = {}) {
 describe('<CommentsSection />', () => {
   it('renders Form component', async () => {
     configureWrapper();
-    await waitForExpect(() => {
-      wrapper.update();
-      expect(wrapper.text()).toContain('Form component');
+    await act(async () => {
+      await waitForExpect(() => {
+        wrapper.update();
+        expect(wrapper.text()).toContain('Form component');
+      });
     });
   });
 
@@ -148,6 +177,17 @@ describe('<CommentsSection />', () => {
           wrapper.update();
           expect(wrapper.text()).toContain(
             `Comment component ${resultComment.content}`,
+          );
+        });
+      });
+    });
+
+    it('renders transmitted new post with new tag', async () => {
+      await act(async () => {
+        await waitForExpect(() => {
+          wrapper.update();
+          expect(wrapper.text()).toContain(
+            `Comment component ${transmittedComment.content} newTag`,
           );
         });
       });

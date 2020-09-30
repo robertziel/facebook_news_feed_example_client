@@ -5,13 +5,14 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { Facebook } from 'react-content-loader';
 import { FormattedMessage } from 'react-intl';
 import { useQuery } from 'containers/ApiConnector/apollo/fetchers';
+import { useSubscription } from '@apollo/client';
 import { colors } from 'styles/constants';
 import { Card, CardContent } from '@material-ui/core';
 
 import Comment from './Comment';
 import Form from './Form';
 import Wrapper from './Wrapper';
-import { COMMENTS_QUERY } from './graphql';
+import { COMMENTS_QUERY, COMMENT_ADDED_SUBSCRIPTION } from './graphql';
 import messages from './messages';
 
 export default function CommentsSection({ post }) {
@@ -33,6 +34,17 @@ export default function CommentsSection({ post }) {
       detectLastComment(data.comments);
     },
     fetchPolicy: 'network-only',
+  });
+
+  useSubscription(COMMENT_ADDED_SUBSCRIPTION, {
+    variables: {
+      postId: post.id,
+    },
+    onSubscriptionData: (data) => {
+      const newComment = data.subscriptionData.data.commentAdded;
+      newComment.newTag = true;
+      setComments([newComment, ...comments]);
+    },
   });
 
   const renderComments = () =>

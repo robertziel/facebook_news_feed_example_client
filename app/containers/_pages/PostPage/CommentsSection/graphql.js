@@ -7,6 +7,22 @@ export const COMMENTS_QUERY = gql`
       content
       createdAt
       user {
+        id
+        avatar
+        name
+      }
+    }
+  }
+`;
+
+export const COMMENT_ADDED_SUBSCRIPTION = gql`
+  subscription($postId: ID!) {
+    commentAdded(postId: $postId) {
+      id
+      content
+      createdAt
+      user {
+        id
         avatar
         name
       }
