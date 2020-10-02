@@ -14,7 +14,7 @@ import { createdNotify, notValidNotify } from './notifications';
 function Form({ intl, postId }) {
   // Form state
   const [errorMessages, setErrorMessages] = useState({});
-  const [content, setContent] = useState(null);
+  const [content, setContent] = useState('');
 
   const [create, { loading }] = useMutation(COMMENT_CREATE_MUTATION, {
     context: {
@@ -29,6 +29,7 @@ function Form({ intl, postId }) {
       if (feedback.success) {
         createdNotify();
         setErrorMessages({});
+        setContent('');
       } else {
         notValidNotify();
         setErrorMessages(prepareActiveModelErrors(feedback.errors));
@@ -45,7 +46,7 @@ function Form({ intl, postId }) {
     <form onSubmit={onSubmit}>
       <Grid>
         <TextField
-          defaultValue={content}
+          value={content}
           label={intl.formatMessage(messages.formContent)}
           type="text"
           name="content"

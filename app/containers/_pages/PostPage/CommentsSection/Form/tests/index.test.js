@@ -84,12 +84,12 @@ async function fillInAndSubmitForm() {
 }
 
 describe('<Form />', () => {
-  context('when update succeeded', () => {
+  context('when create succeeded', () => {
     beforeEach(() => {
       configureWrapper({ id: 1, success: true, errors: [] });
     });
 
-    it('should add success notification', async () => {
+    it('adds success notification', async () => {
       await fillInAndSubmitForm();
       await act(async () => {
         await waitForExpect(() => {
@@ -99,14 +99,26 @@ describe('<Form />', () => {
         });
       });
     });
+
+    it('clears form', async () => {
+      await fillInAndSubmitForm();
+      await act(async () => {
+        await waitForExpect(() => {
+          wrapper.update();
+          expect(
+            wrapper.find(`textarea[name="content"]`).props().value,
+          ).toEqual('');
+        });
+      });
+    });
   });
 
-  context('when update not succeeded', () => {
+  context('when create not succeeded', () => {
     beforeEach(() => {
       configureWrapper({ id: null, success: false, errors: errorMessages });
     });
 
-    it('should render an error messages with notification', async () => {
+    it('renders an error messages with notification', async () => {
       await fillInAndSubmitForm();
       await act(async () => {
         await waitForExpect(() => {
