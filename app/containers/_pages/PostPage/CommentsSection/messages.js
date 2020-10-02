@@ -15,4 +15,8 @@ export default defineMessages({
     id: `${scope}.scrollEnd`,
     defaultMessage: 'No more comments to show.',
   },
+  removedComment: {
+    id: `${scope}.removedComment`,
+    defaultMessage: 'Comment deleted. No longer visible.',
+  },
 });

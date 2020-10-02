@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import {
@@ -10,15 +10,17 @@ import {
   Typography,
 } from '@material-ui/core';
 import { Paper } from 'components/_ui-elements';
+import formattedDateTime from 'utils/formattedDateTime';
 
 import Reactions from './Reactions';
+import Tools from './Tools';
 import messages from './messages';
 
 function Comment({ comment }) {
-  const date = new Date(comment.createdAt);
+  const [commentContent, setCommentContent] = useState(comment);
 
   const newTag = () => {
-    if (comment.newTag) {
+    if (commentContent.newTag) {
       return (
         <Chip
           className="new-tag"
@@ -31,23 +33,48 @@ function Comment({ comment }) {
     return null;
   };
 
-  return (
-    <Paper comment>
+  const removeComment = () => {
+    setCommentContent(null);
+  };
+
+  const updateComment = (updatedComment) => {
+    setCommentContent(updatedComment);
+  };
+
+  const renderComment = () => (
+    <div>
+      <Tools
+        comment={comment}
+        afterDeleted={removeComment}
+        afterUpdated={updateComment}
+      />
       {newTag()}
 
       <CardHeader
-        avatar={<Avatar src={comment.user.avatar} />}
-        title={comment.user.name}
-        subheader={date.toDateString()}
+        avatar={<Avatar src={commentContent.user.avatar} />}
+        title={commentContent.user.name}
+        subheader={formattedDateTime(commentContent.createdAt)}
       ></CardHeader>
       <CardContent>
         <Typography component="span" align="center">
-          {comment.content}
+          {commentContent.content}
         </Typography>
       </CardContent>
       <CardActions>
         <Reactions comment={comment} />
       </CardActions>
+    </div>
+  );
+
+  const renderRemovedComment = () => (
+    <Typography component="span" align="center">
+      <FormattedMessage {...messages.removedComment} />
+    </Typography>
+  );
+
+  return (
+    <Paper comment>
+      {commentContent ? renderComment() : renderRemovedComment()}
     </Paper>
   );
 }

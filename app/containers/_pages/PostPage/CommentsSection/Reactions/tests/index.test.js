@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 
 import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
+import waitForExpect from 'wait-for-expect';
 import { MockedProvider } from '@apollo/client/testing';
 
 import IntlCatcher from 'containers/LanguageProvider/IntlCatcher';
@@ -83,19 +84,21 @@ describe('<Reactions />', () => {
       });
 
       it('sets received reactions data back', async () => {
-        wrapper.update();
-        expect(wrapper.exists(`button[type="${reaction}"]:not(.active)`)).toBe(
-          true,
-        );
-        expect(wrapper.text()).toContain(
-          updatedCommentObject.likeReactionsCount,
-        );
-        expect(wrapper.text()).toContain(
-          updatedCommentObject.smileReactionsCount,
-        );
-        expect(wrapper.text()).toContain(
-          updatedCommentObject.thumbsUpReactionsCount,
-        );
+        await waitForExpect(() => {
+          wrapper.update();
+          expect(
+            wrapper.exists(`button[type="${reaction}"]:not(.active)`),
+          ).toBe(true);
+          expect(wrapper.text()).toContain(
+            updatedCommentObject.likeReactionsCount,
+          );
+          expect(wrapper.text()).toContain(
+            updatedCommentObject.smileReactionsCount,
+          );
+          expect(wrapper.text()).toContain(
+            updatedCommentObject.thumbsUpReactionsCount,
+          );
+        });
       });
     });
   });

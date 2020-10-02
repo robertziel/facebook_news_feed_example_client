@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
 import { ConnectedRouter } from 'connected-react-router';
 import history from 'utils/history';
+import { act } from 'react-dom/test-utils';
+import waitForExpect from 'wait-for-expect';
 
 import NotificationSystem from 'containers/NotificationsSystem';
 import IntlCatcher from 'containers/LanguageProvider/IntlCatcher';
@@ -14,19 +16,32 @@ import ConfigureTestStore from 'testsHelpers/ConfigureTestStore';
 
 import Comment from '../Comment';
 import Reactions from '../Reactions';
+import Tools from '../Tools';
 import messages from '../messages';
 
-// Mock Reactions required by Comment
 /* eslint-disable react/prop-types */
+// Mock Reactions required by Comment
 jest.mock('containers/_pages/PostPage/CommentsSection/Reactions', () => () => (
   <div>Reactions</div>
+));
+// Mock Tools required by Comment
+jest.mock('containers/_pages/PostPage/CommentsSection/Tools', () => () => (
+  <div>Tools</div>
 ));
 /* eslint-enable */
 
 const comment = {
   id: 1,
   content: 'Content',
-  title: 'Title',
+  createdAt: '2020-09-16T15:38:46+02:00',
+  user: {
+    name: 'User name',
+  },
+};
+
+const updatedComment = {
+  id: 1,
+  content: 'Updated Content',
   createdAt: '2020-09-16T15:38:46+02:00',
   user: {
     name: 'User name',
@@ -64,10 +79,44 @@ describe('<Comment />', () => {
     expect(wrapper.text()).toContain(comment.content);
   });
 
-  it('renders <Reactions /> with comment in props', async () => {
+  it('renders <Reactions /> with comment in props', () => {
     configureWrapper();
     expect(wrapper.exists(Reactions)).toBe(true);
     expect(wrapper.find(Reactions).props().comment).toEqual(comment);
+  });
+
+  context('<Tools />', () => {
+    beforeEach(() => {
+      configureWrapper();
+    });
+
+    it('renders it once', () => {
+      expect(wrapper.exists(Tools)).toBe(true);
+    });
+
+    context('which afterDeleted prop is called', () => {
+      it('sets message removedComment', async () => {
+        await act(async () => {
+          wrapper.find(Tools).props().afterDeleted();
+          await waitForExpect(() => {
+            expect(wrapper.text()).toContain(
+              messages.removedComment.defaultMessage,
+            );
+          });
+        });
+      });
+    });
+
+    context('which afterUpdated prop is called', () => {
+      it('sets message removedComment', async () => {
+        await act(async () => {
+          wrapper.find(Tools).props().afterUpdated(updatedComment);
+          await waitForExpect(() => {
+            expect(wrapper.text()).toContain(updatedComment.content);
+          });
+        });
+      });
+    });
   });
 
   context('when has newTag defined', () => {
