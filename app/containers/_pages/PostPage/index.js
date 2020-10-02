@@ -21,7 +21,7 @@ export default function PostPage() {
 
   return (
     <Grid container>
-      <Grid item>
+      <Grid item xs={12}>
         <Paper topLine>
           <FetchedContent processing={post === undefined || loading}>
             <div>
