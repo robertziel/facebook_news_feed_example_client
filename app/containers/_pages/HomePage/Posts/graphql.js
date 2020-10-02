@@ -3,13 +3,16 @@ import { gql } from '@apollo/client';
 export const POSTS_QUERY = gql`
   query posts($olderThanId: ID) {
     posts(olderThanId: $olderThanId) {
-      id
-      truncatedContent
-      title
-      createdAt
-      user {
-        avatar
-        name
+      moreRecords
+      posts {
+        id
+        truncatedContent
+        title
+        createdAt
+        user {
+          avatar
+          name
+        }
       }
     }
   }

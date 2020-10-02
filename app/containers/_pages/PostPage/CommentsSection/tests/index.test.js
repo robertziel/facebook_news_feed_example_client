@@ -88,7 +88,7 @@ const mocks = (opts) => [
     },
     result: {
       data: {
-        comments: opts.resultComments ? [resultComment] : [],
+        comments: { moreToLoad: opts.moreComments, comments: [resultComment] },
       },
     },
   },
@@ -101,7 +101,7 @@ const mocks = (opts) => [
     },
     result: {
       data: {
-        comments: opts.resultComments ? [resultComment] : [],
+        comments: { moreToLoad: opts.moreComments, comments: [resultComment] },
       },
     },
   }, // fetchPolicy: 'network-only' calls useQuery again during fetchMore, hopefully it is fixed soon : https://github.com/apollographql/apollo-client/issues/6327
@@ -115,7 +115,10 @@ const mocks = (opts) => [
     },
     result: {
       data: {
-        comments: opts.loadedOnScrollComments ? [loadedOnScrollComment] : [],
+        comments: {
+          moreToLoad: opts.moreCommentsOnScrollLoad,
+          comments: [loadedOnScrollComment],
+        },
       },
     },
   },
@@ -169,7 +172,7 @@ describe('<CommentsSection />', () => {
 
   context('when comment is returned by COMMENTS_QUERY', () => {
     beforeEach(() => {
-      configureWrapper({ resultComments: true });
+      configureWrapper({ moreComments: true });
     });
 
     it('renders Comment with comment in props', async () => {
@@ -197,8 +200,8 @@ describe('<CommentsSection />', () => {
     context('when comment is returned by COMMENTS_QUERY on fetchMore', () => {
       beforeEach(() => {
         configureWrapper({
-          resultComments: true,
-          loadedOnScrollComments: true,
+          moreComments: true,
+          moreCommentsOnScrollLoad: true,
         });
       });
 
@@ -226,7 +229,7 @@ describe('<CommentsSection />', () => {
       'when empty array is returned by COMMENTS_QUERY on fetchMore',
       () => {
         beforeEach(() => {
-          configureWrapper({ resultComments: true });
+          configureWrapper({ moreComments: true });
         });
 
         it('renders scrollEnd message', async () => {
@@ -256,7 +259,7 @@ describe('<CommentsSection />', () => {
 
   context('when empty array is returned by COMMENTS_QUERY', () => {
     beforeEach(() => {
-      configureWrapper({ resultComments: false });
+      configureWrapper({ moreComments: false });
     });
 
     it('renders scrollEnd message', async () => {

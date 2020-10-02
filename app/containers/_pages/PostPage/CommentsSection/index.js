@@ -19,19 +19,14 @@ export default function CommentsSection({ post }) {
   const [comments, setComments] = useState([]);
   const [moreToLoad, setMoreToLoad] = useState(true);
 
-  const detectLastComment = (loadedComments) => {
-    if (loadedComments.length === 0) {
-      setMoreToLoad(false);
-    }
-  };
-
   const { fetchMore } = useQuery(COMMENTS_QUERY, {
     variables: {
       postId: post.id,
     },
     onCompleted: (data) => {
-      setComments(data.comments);
-      detectLastComment(data.comments);
+      const feedback = data.comments;
+      setComments(feedback.comments);
+      setMoreToLoad(feedback.moreRecords);
     },
     fetchPolicy: 'network-only',
   });
@@ -66,8 +61,9 @@ export default function CommentsSection({ post }) {
           postId: post.id,
         },
         updateQuery(previousResult, { fetchMoreResult }) {
-          setComments([...comments, ...fetchMoreResult.comments]);
-          detectLastComment(fetchMoreResult.comments);
+          const feedback = fetchMoreResult.comments;
+          setComments([...comments, ...feedback.comments]);
+          setMoreToLoad(feedback.moreRecords);
         },
       });
     }
@@ -109,6 +105,7 @@ export default function CommentsSection({ post }) {
         hasMore={moreToLoad}
         loader={loader()}
         endMessage={endMessage()}
+        scrollableTarget="main-scroll"
       >
         <TransitionGroup>{renderComments()}</TransitionGroup>
       </InfiniteScroll>

@@ -16,12 +16,6 @@ export default function Posts() {
   const [posts, setPosts] = useState([]);
   const [moreToLoad, setMoreToLoad] = useState(true);
 
-  const detectLastPost = (loadedPosts) => {
-    if (loadedPosts.length === 0) {
-      setMoreToLoad(false);
-    }
-  };
-
   useSubscription(POST_ADDED_SUBSCRIPTION, {
     onSubscriptionData: (data) => {
       const newPost = data.subscriptionData.data.postAdded;
@@ -32,8 +26,9 @@ export default function Posts() {
 
   const { fetchMore } = useQuery(POSTS_QUERY, {
     onCompleted: (data) => {
-      setPosts(data.posts);
-      detectLastPost(data.posts);
+      const feedback = data.posts;
+      setPosts(feedback.posts);
+      setMoreToLoad(feedback.moreRecords);
     },
     fetchPolicy: 'network-only',
   });
@@ -54,8 +49,9 @@ export default function Posts() {
           olderThanId: lastPost.id,
         },
         updateQuery(previousResult, { fetchMoreResult }) {
-          setPosts([...posts, ...fetchMoreResult.posts]);
-          detectLastPost(fetchMoreResult.posts);
+          const feedback = fetchMoreResult.posts;
+          setPosts([...posts, ...feedback.posts]);
+          setMoreToLoad(feedback.moreRecords);
         },
       });
     }

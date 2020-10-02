@@ -57,7 +57,7 @@ function Form({ intl, comment, afterUpdated }) {
           required
         />
       </Grid>
-      <Grid xs={12}>
+      <Grid>
         <SubmitButton processing={loading}>
           <FormattedMessage {...messages.formButton} />
         </SubmitButton>

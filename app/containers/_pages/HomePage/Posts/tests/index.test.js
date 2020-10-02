@@ -63,7 +63,7 @@ const mocks = (opts) => [
     },
     result: {
       data: {
-        posts: opts.resultPosts ? [resultPost] : [],
+        posts: { moreToLoad: opts.morePosts, posts: [resultPost] },
       },
     },
   },
@@ -73,7 +73,7 @@ const mocks = (opts) => [
     },
     result: {
       data: {
-        posts: opts.resultPosts ? [resultPost] : [],
+        posts: { moreToLoad: opts.morePosts, posts: [resultPost] },
       },
     },
   }, // fetchPolicy: 'network-only' calls useQuery again during fetchMore, hopefully it is fixed soon : https://github.com/apollographql/apollo-client/issues/6327
@@ -86,7 +86,10 @@ const mocks = (opts) => [
     },
     result: {
       data: {
-        posts: opts.loadedOnScrollPosts ? [loadedOnScrollPost] : [],
+        posts: {
+          moreToLoad: opts.morePostsOnScrollLoad,
+          posts: [loadedOnScrollPost],
+        },
       },
     },
   },
@@ -127,7 +130,7 @@ function configureWrapper(opts) {
 describe('<Posts />', () => {
   context('when post is returned by POSTS_QUERY', () => {
     beforeEach(() => {
-      configureWrapper({ resultPosts: true });
+      configureWrapper({ morePosts: true });
     });
 
     it('renders Post with post in props', async () => {
@@ -154,7 +157,7 @@ describe('<Posts />', () => {
 
     context('when post is returned by POSTS_QUERY on fetchMore', () => {
       beforeEach(() => {
-        configureWrapper({ resultPosts: true, loadedOnScrollPosts: true });
+        configureWrapper({ morePosts: true, morePostsOnScrollLoad: true });
       });
 
       it('renders loaded Post with post in props', async () => {
@@ -179,7 +182,7 @@ describe('<Posts />', () => {
 
     context('when empty array is returned by POSTS_QUERY on fetchMore', () => {
       beforeEach(() => {
-        configureWrapper({ resultPosts: true });
+        configureWrapper({ morePosts: true });
       });
 
       it('renders scrollEnd message', async () => {
@@ -208,7 +211,7 @@ describe('<Posts />', () => {
 
   context('when empty array is returned by POSTS_QUERY', () => {
     beforeEach(() => {
-      configureWrapper({ resultPosts: false });
+      configureWrapper({ morePosts: false });
     });
 
     it('renders scrollEnd message', async () => {
