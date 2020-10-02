@@ -36,11 +36,11 @@ export default defineMessages({
     defaultMessage: `Have an account? Sign in here!`,
   },
   signedUpNotify: {
-    id: `${scope}.notifications.signedInNotify`,
+    id: `${scope}.notifications.signedUpNotify`,
     defaultMessage: 'Your account has been created!',
   },
   signUpFailedNotify: {
-    id: `${scope}.notifications.signedInNotify`,
+    id: `${scope}.notifications.signUpFailedNotify`,
     defaultMessage: 'Could not create account',
   },
 });
