@@ -6,10 +6,10 @@ import { createSelector } from 'reselect';
 
 import { colors } from 'styles/constants';
 import { FulfillingBouncingCircleSpinner } from 'react-epic-spinners';
-
 import FetchedContent from 'containers/FetchedContent';
+
+import { useQuery } from '@apollo/client';
 import { setCurrentUser } from './actions';
-import { useQuery } from './apollo/fetchers';
 import { restartActionCableConnection } from './apollo/links/protocolLink/wsLink';
 
 import { currentUserSelector } from './selectors';

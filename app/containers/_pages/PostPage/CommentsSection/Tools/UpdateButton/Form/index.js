@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { Grid, SubmitButton, TextField } from 'components/_ui-elements';
 
-import { useMutation } from 'containers/ApiConnector/apollo/fetchers';
+import { useMutation } from '@apollo/client';
 import prepareActiveModelErrors from 'utils/prepareActiveModelErrors';
 import { COMMENT_UPDATE_MUTATION } from './graphql';
 

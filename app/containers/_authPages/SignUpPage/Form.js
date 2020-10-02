@@ -9,7 +9,7 @@ import {
   TextField,
 } from 'components/_ui-elements';
 
-import { useMutation } from 'containers/ApiConnector/apollo/fetchers';
+import { useMutation } from '@apollo/client';
 import prepareActiveModelErrors from 'utils/prepareActiveModelErrors';
 import { SIGN_UP_MUTATION } from './graphql';
 

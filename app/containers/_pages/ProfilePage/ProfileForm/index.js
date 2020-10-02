@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Paper } from 'components/_ui-elements';
 
 import FetchedContent from 'containers/FetchedContent';
-import { useQuery } from 'containers/ApiConnector/apollo/fetchers';
+import { useQuery } from '@apollo/client';
 import { PROFILE_QUERY } from './graphql';
 
 import Form from './Form';

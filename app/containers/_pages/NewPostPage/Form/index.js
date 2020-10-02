@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import { Grid, SubmitButton, TextField } from 'components/_ui-elements';
 
-import { useMutation } from 'containers/ApiConnector/apollo/fetchers';
+import { useMutation } from '@apollo/client';
 import prepareActiveModelErrors from 'utils/prepareActiveModelErrors';
 import { POST_CREATE_MUTATION } from './graphql';
 

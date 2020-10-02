@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import { useMutation } from 'containers/ApiConnector/apollo/fetchers';
+import { useMutation } from '@apollo/client';
 
 import { COMMENT_DELETE_MUTATION } from './graphql';
 import messages from './messages';

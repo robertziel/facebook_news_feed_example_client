@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { createSelector } from 'reselect';
 
 import { FormattedMessage } from 'react-intl';
-import { useQuery } from 'containers/ApiConnector/apollo/fetchers';
+import { useQuery } from '@apollo/client';
 import { currentUserSelector } from 'containers/ApiConnector/selectors';
 import FetchedContent from 'containers/FetchedContent';
 import { Divider, Grid, H1, Paper } from 'components/_ui-elements';

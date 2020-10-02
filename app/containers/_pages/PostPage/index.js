@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery } from 'containers/ApiConnector/apollo/fetchers';
+import { useQuery } from '@apollo/client';
 import FetchedContent from 'containers/FetchedContent';
 import { Grid, Paper } from 'components/_ui-elements';
 import CommentsSection from './CommentsSection';

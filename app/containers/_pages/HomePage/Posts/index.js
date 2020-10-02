@@ -3,8 +3,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Facebook } from 'react-content-loader';
 import { FormattedMessage } from 'react-intl';
-import { useQuery } from 'containers/ApiConnector/apollo/fetchers';
-import { useSubscription } from '@apollo/client';
+import { useSubscription, useQuery } from '@apollo/client';
 import { colors } from 'styles/constants';
 import { Card, CardContent } from '@material-ui/core';
 

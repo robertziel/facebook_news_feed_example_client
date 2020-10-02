@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useMutation } from 'containers/ApiConnector/apollo/fetchers';
+import { useMutation } from '@apollo/client';
 
 import { SubmitButton } from 'components/_ui-elements';
 import FontAwesome from 'react-fontawesome';
