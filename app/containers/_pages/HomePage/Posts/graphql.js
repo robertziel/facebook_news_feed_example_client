@@ -22,7 +22,7 @@ export const POST_ADDED_SUBSCRIPTION = gql`
   subscription {
     postAdded {
       id
-      content
+      truncatedContent
       title
       createdAt
       user {
