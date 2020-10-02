@@ -7,7 +7,7 @@ import {
   CardHeader,
   Typography,
 } from '@material-ui/core';
-import formattedDateTime from 'utils/formattedDateTime';
+import moment from 'moment';
 import Tools from './Tools';
 
 export default function PostSection({ post }) {
@@ -17,7 +17,7 @@ export default function PostSection({ post }) {
       <CardHeader
         avatar={<Avatar src={post.user.avatar} />}
         title={post.user.name}
-        subheader={formattedDateTime(post.createdAt)}
+        subheader={moment(post.createdAt).format('YYYY-MM-MM HH:mm')}
       />
       <CardContent>
         <Typography

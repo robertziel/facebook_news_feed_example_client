@@ -10,7 +10,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { Paper } from 'components/_ui-elements';
-import formattedDateTime from 'utils/formattedDateTime';
+import moment from 'moment';
 
 import Reactions from './Reactions';
 import Tools from './Tools';
@@ -53,7 +53,7 @@ function Comment({ comment }) {
       <CardHeader
         avatar={<Avatar src={commentContent.user.avatar} />}
         title={commentContent.user.name}
-        subheader={formattedDateTime(commentContent.createdAt)}
+        subheader={moment(commentContent.createdAt).format('YYYY-MM-MM HH:mm')}
       ></CardHeader>
       <CardContent>
         <Typography component="span" align="center">
