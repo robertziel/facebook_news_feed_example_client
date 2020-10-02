@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import FontAwesome from 'react-fontawesome';
 import { Button } from 'components/_ui-elements';
-import { Dialog } from '@material-ui/core';
 
 import Form from './Form';
+import Dialog from './Dialog';
 
 export default function UpdateButton({ comment, afterUpdated }) {
   const [openDialog, setOpenDialog] = useState(false);

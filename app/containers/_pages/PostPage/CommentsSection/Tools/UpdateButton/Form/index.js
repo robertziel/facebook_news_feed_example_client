@@ -54,11 +54,10 @@ function Form({ intl, comment, afterUpdated }) {
           variant="outlined"
           helperText={errorMessages.attributes_content}
           error={!!errorMessages.attributes_content}
-          multiline
           required
         />
       </Grid>
-      <Grid>
+      <Grid xs={12}>
         <SubmitButton processing={loading}>
           <FormattedMessage {...messages.formButton} />
         </SubmitButton>

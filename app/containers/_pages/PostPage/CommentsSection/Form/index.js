@@ -54,7 +54,6 @@ function Form({ intl, postId }) {
           variant="outlined"
           helperText={errorMessages.attributes_content}
           error={!!errorMessages.attributes_content}
-          multiline
           required
         />
       </Grid>

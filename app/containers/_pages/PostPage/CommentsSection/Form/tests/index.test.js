@@ -77,7 +77,7 @@ async function configureWrapper(mockResponse) {
 async function fillInAndSubmitForm() {
   await act(async () => {
     wrapper
-      .find('textarea[name="content"]')
+      .find('input[name="content"]')
       .simulate('change', { target: { value: commentObject.content } });
   });
   wrapper.find('button[type="submit"]').simulate('submit');
@@ -105,9 +105,9 @@ describe('<Form />', () => {
       await act(async () => {
         await waitForExpect(() => {
           wrapper.update();
-          expect(
-            wrapper.find(`textarea[name="content"]`).props().value,
-          ).toEqual('');
+          expect(wrapper.find(`input[name="content"]`).props().value).toEqual(
+            '',
+          );
         });
       });
     });

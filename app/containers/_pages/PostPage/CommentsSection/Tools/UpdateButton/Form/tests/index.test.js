@@ -88,7 +88,7 @@ async function configureWrapper(mockResponse) {
 async function fillInAndSubmitForm() {
   await act(async () => {
     wrapper
-      .find('textarea[name="content"]')
+      .find('input[name="content"]')
       .simulate('change', { target: { value: updatedCommentObject.content } });
   });
   wrapper.find('button[type="submit"]').simulate('submit');
