@@ -19,24 +19,17 @@ Run using npm
 npm install
 npm start
 ```
+Go to http://localhost:3000/
 
-## Docker
+## To do
 
-Repository contains basic docker setup. Depending on needs you can run app locally using both traditional `npm start` or `docker-compose`.
-
-Docker compose is set up as default to run locally in **development** environment but can be easily changed for production needs.
-
-1. Build:
-```
-docker-compose build
-```
-
-2. Start containers and check `localhost:3000`:
-```
-docker-compose up
-```
-
-3. Shut down containers:
-```
-docker-compose down
-```
+* Translate Material UI validations
+* Links in some links doesn't work as single page app (in Sign up and Sign in pages)
+* Store new profile data after updated
+* Don't hardcode path
+* Paragraphs in posts (now css does the thing, which is not good). Also maybe add paragraphs for posts on HomePage, but this is just truncated text'
+* When visit /post/:id for non existing post, it should tell user that post is not found
+* When user reacts, and connection error occurs, it should revert reaction highlight to previous one
+* Reactions subscriptions would be nice
+* Use one icons source, currently are Awesome Font and Material UI used
+* Infinite scroll should fetch databased on last fetched content createdAt date, not id
